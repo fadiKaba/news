@@ -10895,11 +10895,22 @@ a.text-dark:focus {
   color: #000;
 }
 
+.first-nav #menu-btn,
+.first-nav #search-btn {
+  transition: 0.3s;
+}
+
+.first-nav #menu-btn:hover,
+.first-nav #search-btn:hover {
+  background-color: #F7F7F7;
+}
+
 #left-menu {
   height: 100vh;
   border: solid #cecece 1px;
   position: absolute;
-  width: 200px;
+  width: 20vw;
+  z-index: 3;
   top: 0;
   box-shadow: 5px 5px 5px #d1d1d1;
   font-weight: 700;
@@ -10935,7 +10946,7 @@ a.text-dark:focus {
 }
 
 .menu-left {
-  left: -200px;
+  left: -40vw;
 }
 
 .second-navbar .date {
@@ -10945,6 +10956,7 @@ a.text-dark:focus {
 .second-navbar .date p {
   align-self: flex-end;
   margin-bottom: 0;
+  font-size: 0.8rem;
 }
 
 .second-navbar .today {
@@ -10957,10 +10969,31 @@ a.text-dark:focus {
   margin-bottom: 0;
 }
 
+.third-navbar nav {
+  border-top: solid 1px #dfdfdf;
+  border-bottom: solid 1px #000;
+}
+
+.third-navbar nav div ul li a {
+  color: #000;
+  font-size: 0.8rem;
+  margin-right: 1vw;
+  padding: 2px 5px;
+  transition: 0.3s;
+}
+
+.third-navbar nav div ul li a:hover {
+  background-color: #F7F7F7;
+}
+
 @media screen and (max-width: 500px) {
   .brand {
     font-size: 1.5rem;
     font-family: "Tinos", serif;
+  }
+
+  .third-navbar nav {
+    border-top: none;
   }
 }
 
@@ -10994,6 +11027,7 @@ a.text-dark:focus {
 }
 
 body {
+  background-color: #fff;
   font-family: Arial, Helvetica, sans-serif;
 }
 

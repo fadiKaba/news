@@ -77,7 +77,7 @@
 <div class="container first-nav d-none d-md-block">
     <div class="row pt-1">
         <div class="col-md-4 d-flex">
-            <button id="menu-btn" class="btn ml-auto ml-lg-0"><img src="{{asset('ico/menu.svg')}}" alt="menu" width="18px"></button>
+            <button id="menu-btn" class="btn"><img src="{{asset('ico/menu.svg')}}" alt="menu" width="18px"></button>
             <div class="d-flex">
                 <button id="search-btn" class="btn ml-2"><img src="{{asset('ico/research.svg')}}" alt="menu" width="18px"></button>
                 <form action="" id="search-form" class="d-none ml-1">
@@ -104,6 +104,10 @@
   
   <!-- left menu -->
 <div id="left-menu" class="menu-left">
+    <button class="btn close-menu"><img src="{{asset('ico/close.svg')}}" alt="close" width="15px"></button>
+    {{-- <button class="btn close close-menu p-2">
+        <span aria-hidden="true">X</span>
+    </button> --}}
     <div class="btn-group dropright d-block">
             <a type="button" class="border-0">
             Home Page
@@ -193,10 +197,28 @@
 <div class="container second-navbar">
     <div class="row">
         <div class="col-md-4 text-left date">
-           <p class="mr-auto ml-md-auto d-none d-md-flex">Date</p>
+           <p class=" d-none d-md-flex">{{date('l, M d, Y')}}</p>
         </div>
         <div class="col-md-4 text-center brand">
-           <h1 class="brand">My news website</h1> 
+            <div class="d-flex d-md-none">
+                <div class="col-2 px-0">
+                   <button class="navbar-toggler" 
+                   type="button" 
+                   data-toggle="collapse" 
+                   data-target="#navbarNavDropdown" 
+                   aria-controls="navbarNavDropdown" 
+                   aria-expanded="false" 
+                   aria-label="Toggle navigation"
+                   class="btn"><img src="{{asset('/ico/menu.svg')}}" alt="menu" width="20px"></button>
+                </div>
+                <div class="col-8 px-0">
+                    <h1 class="brand py-2">My news website</h1> 
+                </div>
+                <div class="col-2 px-0">
+                    <button class="btn"><img src="/ico/user.svg" alt="account" width="20px"></button>
+                </div>
+            </div> 
+            <h1 class="brand d-none d-md-block my-0">My news website</h1>         
         </div>
         <div class="col-md-4 md-text-right today">
             <p class="mr-auto d-md-none">Date</p> 
@@ -205,3 +227,48 @@
     </div>
 </div>
 <!-- end second navbar -->
+
+<!-- third navbar -->
+<div class="container third-navbar">
+    <nav class="navbar navbar-expand-lg py-1 mt-1">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav m-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">World<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Art</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Business</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Opinion</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sport</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Health</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Food</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Travel</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Magazine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Style</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+</div>
+
+<!-- end third navbar -->

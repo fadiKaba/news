@@ -3,6 +3,7 @@ const searchForm = document.querySelector('#search-form');
 
 const menuBtn = document.querySelector('#menu-btn');
 const leftMenu = document.querySelector('#left-menu');
+const closeMenu = document.querySelector('.close-menu ');
 
 searchBtn.addEventListener('click', ()=>{
     if(searchForm.classList.contains('d-none')){
@@ -20,5 +21,7 @@ menuBtn.addEventListener('click', ()=>{
     }
 });
 
-
+closeMenu.addEventListener('click', ()=>{
+    leftMenu.classList.add('menu-left');
+})
 

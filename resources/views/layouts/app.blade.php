@@ -13,7 +13,6 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tinos:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400;700&family=Tinos:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
@@ -25,6 +24,7 @@
         @include('layouts/navbar')
 
         <main class="py-4">
+            @include('main')
             @yield('content')
         </main>
     </div>
