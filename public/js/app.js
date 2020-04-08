@@ -49643,6 +49643,34 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/navbar.js":
+/*!********************************!*\
+  !*** ./resources/js/navbar.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var searchBtn = document.querySelector('#search-btn');
+var searchForm = document.querySelector('#search-form');
+var menuBtn = document.querySelector('#menu-btn');
+var leftMenu = document.querySelector('#left-menu');
+searchBtn.addEventListener('click', function () {
+  if (searchForm.classList.contains('d-none')) {
+    searchForm.classList.remove('d-none');
+  } else {
+    searchForm.classList.add('d-none');
+  }
+});
+menuBtn.addEventListener('click', function () {
+  if (leftMenu.classList.contains('menu-left')) {
+    leftMenu.classList.remove('menu-left');
+  } else {
+    leftMenu.classList.add('menu-left');
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49655,14 +49683,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!**************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/navbar.js ./resources/sass/app.scss ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\coding\projects\projects4\news\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\projects\project4\news\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\projects\project4\news\resources\js\navbar.js */"./resources/js/navbar.js");
+module.exports = __webpack_require__(/*! D:\projects\project4\news\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

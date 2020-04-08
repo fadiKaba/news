@@ -10882,12 +10882,6 @@ a.text-dark:focus {
   }
 }
 
-.lang {
-  font-size: 0.6rem;
-  color: #000;
-  text-transform: uppercase;
-}
-
 .brand {
   font-size: 2.5rem;
   font-family: "Tinos", serif;
@@ -10908,9 +10902,47 @@ a.text-dark:focus {
   }
 }
 
+#left-menu {
+  height: 100vh;
+  border: solid #cecece 1px;
+  position: absolute;
+  width: 200px;
+  top: 0;
+  box-shadow: 5px 5px 5px #d1d1d1;
+  font-weight: 700;
+}
+
+#left-menu div {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+#left-menu div span {
+  padding: 3px 5px;
+  font-weight: 400;
+}
+
+#left-menu div a {
+  padding: 3px 5px;
+  color: #000;
+  text-decoration: none;
+  width: 100%;
+}
+
+#left-menu div a:hover {
+  color: #000;
+  text-decoration: none;
+  background-color: #F0F8FC;
+}
+
+.menu-left {
+  left: -200px;
+}
+
 .main-btn {
   background-color: #567b95;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: bold;
   color: #fff;
   border-radius: 3px;
@@ -10924,6 +10956,17 @@ a.text-dark:focus {
   background-color: #326891;
   text-decoration: none;
   color: #fff;
+}
+
+.lang {
+  font-size: 0.6rem;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.lang:hover {
+  text-decoration: none;
+  color: #000;
 }
 
 body {
