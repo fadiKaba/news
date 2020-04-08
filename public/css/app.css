@@ -10895,13 +10895,6 @@ a.text-dark:focus {
   color: #000;
 }
 
-@media screen and (max-width: 500px) {
-  .brand {
-    font-size: 1.3rem;
-    font-family: "Tinos", serif;
-  }
-}
-
 #left-menu {
   height: 100vh;
   border: solid #cecece 1px;
@@ -10910,17 +10903,22 @@ a.text-dark:focus {
   top: 0;
   box-shadow: 5px 5px 5px #d1d1d1;
   font-weight: 700;
+  background-color: #fff;
 }
 
 #left-menu div {
   padding-left: 10px;
-  padding-right: 10px;
   padding-top: 10px;
 }
 
 #left-menu div span {
   padding: 3px 5px;
   font-weight: 400;
+}
+
+#left-menu div:hover > .dropdown-menu {
+  display: block;
+  margin-left: -10px;
 }
 
 #left-menu div a {
@@ -10938,6 +10936,32 @@ a.text-dark:focus {
 
 .menu-left {
   left: -200px;
+}
+
+.second-navbar .date {
+  display: flex;
+}
+
+.second-navbar .date p {
+  align-self: flex-end;
+  margin-bottom: 0;
+}
+
+.second-navbar .today {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.second-navbar .today p {
+  align-self: flex-end;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .brand {
+    font-size: 1.5rem;
+    font-family: "Tinos", serif;
+  }
 }
 
 .main-btn {

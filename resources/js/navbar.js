@@ -10,7 +10,7 @@ searchBtn.addEventListener('click', ()=>{
     }else{
         searchForm.classList.add('d-none')
     }
-})
+});
 
 menuBtn.addEventListener('click', ()=>{
     if(leftMenu.classList.contains('menu-left')){
@@ -18,5 +18,7 @@ menuBtn.addEventListener('click', ()=>{
     }else{
         leftMenu.classList.add('menu-left')
     }
-})
+});
+
+
 

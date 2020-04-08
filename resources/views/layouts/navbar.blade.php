@@ -73,12 +73,13 @@
       
 </div> --}}
 
+<!-- firs navbar -->
 <div class="container first-nav d-none d-md-block">
-    <div class="row py-1">
+    <div class="row pt-1">
         <div class="col-md-4 d-flex">
-            <button id="menu-btn" class="btn"><img src="{{asset('ico/menu.svg')}}" alt="menu" width="18px"></button>
+            <button id="menu-btn" class="btn ml-auto ml-lg-0"><img src="{{asset('ico/menu.svg')}}" alt="menu" width="18px"></button>
             <div class="d-flex">
-                <button id="search-btn" class="btn"><img src="{{asset('ico/research.svg')}}" alt="menu" width="18px"></button>
+                <button id="search-btn" class="btn ml-2"><img src="{{asset('ico/research.svg')}}" alt="menu" width="18px"></button>
                 <form action="" id="search-form" class="d-none ml-1">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="search">
@@ -99,6 +100,8 @@
         </div>
     </div>
 </div>
+  <!-- end firs navbar -->
+  
   <!-- left menu -->
 <div id="left-menu" class="menu-left">
     <div class="btn-group dropright d-block">
@@ -107,7 +110,7 @@
             </a>
       </div>
       <div class="btn-group dropright d-block">
-            <a type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a type="button" class="border-0 dropdown-toggle"  aria-haspopup="true" aria-expanded="false">
                 World
             </a>
             <div class="dropdown-menu">
@@ -120,7 +123,7 @@
         </div>
     </div>
     <div class="btn-group dropright d-block">
-        <a type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
             Art
         </a>
         <div class="dropdown-menu">
@@ -134,7 +137,7 @@
         </div>
     </div>
     <div class="btn-group dropright d-block">
-        <a type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
             Sport
         </a>
         <div class="dropdown-menu">
@@ -148,7 +151,7 @@
         </div>
     </div>
     <div class="btn-group dropright d-block">
-        <a type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
             Heath
         </a>
         <div class="dropdown-menu">
@@ -158,7 +161,7 @@
         </div>
     </div>
     <div class="btn-group dropright d-block">
-        <a type="button" class="border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
             Food
         </a>
         <div class="dropdown-menu">
@@ -185,3 +188,20 @@
 </div>
 
 <!-- end left menu -->
+
+<!-- second navbar -->
+<div class="container second-navbar">
+    <div class="row">
+        <div class="col-md-4 text-left date">
+           <p class="mr-auto ml-md-auto d-none d-md-flex">Date</p>
+        </div>
+        <div class="col-md-4 text-center brand">
+           <h1 class="brand">My news website</h1> 
+        </div>
+        <div class="col-md-4 md-text-right today">
+            <p class="mr-auto d-md-none">Date</p> 
+            <p>today's paper</p> 
+        </div>
+    </div>
+</div>
+<!-- end second navbar -->
