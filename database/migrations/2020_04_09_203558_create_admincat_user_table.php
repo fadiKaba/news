@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAdmincatTable extends Migration
+class CreateAdmincatUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserAdmincatTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_admincat', function (Blueprint $table) {
+        Schema::create('admincat_user', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->integer('admincat_id');
@@ -27,6 +27,6 @@ class CreateUserAdmincatTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_admincat');
+        Schema::dropIfExists('admincat_user');
     }
 }

@@ -26,3 +26,20 @@
         color: #000;
     }
 }
+
+.edit-admin{
+    background-color: $color1;
+    font-size: 0.6rem;
+    font-weight: bold;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    padding: 2px 3px;
+    transition: 0.4s;
+    font-family: Arial, Helvetica, sans-serif;;
+    &:hover{
+        background-color: $color2;
+        text-decoration: none;
+        color: #fff;
+    }
+}
