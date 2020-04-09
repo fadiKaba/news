@@ -1,3 +1,0 @@
-
-<Maincomponent></Maincomponent>
-

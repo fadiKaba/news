@@ -50634,9 +50634,9 @@ closeMenu.addEventListener('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\project4\news\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\projects\project4\news\resources\js\navbar.js */"./resources/js/navbar.js");
-module.exports = __webpack_require__(/*! D:\projects\project4\news\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\navbar.js */"./resources/js/navbar.js");
+module.exports = __webpack_require__(/*! C:\coding\projects\projects4\news\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

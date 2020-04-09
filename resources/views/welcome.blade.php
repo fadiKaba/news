@@ -2,6 +2,6 @@
 
 @section('content')
 
-
+<Maincomponent></Maincomponent>
 
 @endsection

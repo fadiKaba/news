@@ -95,8 +95,31 @@
             <a href="#" class="lang ml-3">Arabic</a>
         </div>
         <div class="col-md-4 text-right">
-            <button class="btn main-btn">subscribe</button>
-            <button class="btn main-btn">login</button>
+            <a href="#" class="btn main-btn text-white">subscribe</a>
+            {{-- <a href="/login" class="btn main-btn text-white">login</a> --}}
+
+        @guest
+                <a class="btn main-btn text-white" href="{{ route('login') }}">{{ __('Log in') }}</a>
+        @else
+            <a class="nav-item dropdown">
+                <a id="navbarDropdown" class="dropdown-toggle btn main-btn text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </a>
+        @endguest
+
         </div>
     </div>
 </div>
@@ -109,7 +132,7 @@
         <span aria-hidden="true">X</span>
     </button> --}}
     <div class="btn-group dropright d-block">
-            <a type="button" class="border-0">
+            <a href="/" type="button" class="border-0">
             Home Page
             </a>
       </div>
@@ -212,13 +235,13 @@
                    class="btn"><img src="{{asset('/ico/menu.svg')}}" alt="menu" width="20px"></button>
                 </div>
                 <div class="col-8 px-0">
-                    <h1 class="brand py-2">My news website</h1> 
+                    <h1 class="brand py-2"><a href="/" class="text-decoration-none text-dark">My news website</a></h1> 
                 </div>
                 <div class="col-2 px-0">
                     <button class="btn"><img src="/ico/user.svg" alt="account" width="20px"></button>
                 </div>
             </div> 
-            <h1 class="brand d-none d-md-block my-0">My news website</h1>         
+            <h1 class="brand d-none d-md-block my-0"><a href="/" class="text-decoration-none text-dark">My news website</a></h1>         
         </div>
         <div class="col-md-4 md-text-right today">
             <p class="mr-auto d-md-none">Date</p> 
