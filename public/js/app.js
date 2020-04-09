@@ -1908,15 +1908,69 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Fourthnavbar',
-  mounted: function mounted() {},
-  methods: {}
+  data: function data() {
+    return {
+      userInfo: ''
+    };
+  },
+  mounted: function mounted() {
+    this.getIpAdress();
+  },
+  methods: {
+    getIpAdress: function getIpAdress() {
+      var _this = this;
+
+      $.getJSON("http://api.db-ip.com/v2/free/self").then(function (addrInfo) {
+        console.log(addrInfo);
+
+        _this.makeUserInfo(addrInfo);
+      });
+    },
+    makeUserInfo: function makeUserInfo(info) {
+      var UserInfo = function UserInfo(location) {
+        _classCallCheck(this, UserInfo);
+
+        this.continentName = location.continentName;
+        this.countryCode = location.countryCode;
+        this.countryName = location.countryName;
+        this.cityName = location.city;
+      };
+
+      this.userInfo = new UserInfo(info);
+      this.getWeather(this.userInfo.cityName, this.countryCode);
+    },
+    getWeather: function getWeather(cityID, code) {
+      var key = '{feb4305836e07f97a8d44c5d7209a5a4}';
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityID + ',' + code + '&appid=' + key).then(function (resp) {
+        return resp.json();
+      }) // Convert data to json
+      .then(function (data) {
+        console.log(data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -1931,6 +1985,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Fourthnavbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Fourthnavbar */ "./resources/js/components/Fourthnavbar.vue");
+//
 //
 //
 //
@@ -37302,17 +37357,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-browser-geolocation/dist/vue-geolocation.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/vue-browser-geolocation/dist/vue-geolocation.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(o,t){ true?module.exports=t():undefined}(this,function(){return function(o){function t(n){if(e[n])return e[n].exports;var r=e[n]={i:n,l:!1,exports:{}};return o[n].call(r.exports,r,r.exports,t),r.l=!0,r.exports}var e={};return t.m=o,t.c=e,t.i=function(o){return o},t.d=function(o,e,n){t.o(o,e)||Object.defineProperty(o,e,{configurable:!1,enumerable:!0,get:n})},t.n=function(o){var e=o&&o.__esModule?function(){return o.default}:function(){return o};return t.d(e,"a",e),e},t.o=function(o,t){return Object.prototype.hasOwnProperty.call(o,t)},t.p="",t(t.s=0)}([function(o,t,e){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n={install:function(o){o.prototype.$getLocation=n.getLocation,o.prototype.$watchLocation=n.watchLocation,o.prototype.$clearLocationWatch=n.clearLocation},getLocation:function(){var o=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1&&void 0!==arguments[1]&&arguments[1];return new Promise(function(e,r){if(t)return void r("reject forced for testing purposes");n._isAvailable()?window.navigator.geolocation.getCurrentPosition(function(o){e({lat:o.coords.latitude,lng:o.coords.longitude,altitude:o.coords.altitude,altitudeAccuracy:o.coords.altitudeAccuracy,accuracy:o.coords.accuracy})},function(){r("no position access")},o):r("no browser support")})},watchLocation:function(){var o=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments.length>1&&void 0!==arguments[1]&&arguments[1];return new Promise(function(e,r){if(t)return void r("reject forced for testing purposes");n._isAvailable()?window.navigator.geolocation.watchPosition(function(o){e({lat:o.coords.latitude,lng:o.coords.longitude,altitude:o.coords.altitude,altitudeAccuracy:o.coords.altitudeAccuracy,accuracy:o.coords.accuracy,heading:o.coords.heading,speed:o.coords.speed})},function(){r("no position access")},o):r("no browser support")})},clearLocation:function(o){return new Promise(function(t,e){n._isAvailable()?o?t(window.navigator.geolocation.clearWatch(o)):e("please provide watchID"):e("no browser support")})},_isAvailable:function(){return"geolocation"in window.navigator}};t.default=n,"undefined"!=typeof window&&window.Vue&&window.Vue.use(n)}])});
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Fourthnavbar.vue?vue&type=template&id=c2edccd6&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Fourthnavbar.vue?vue&type=template&id=c2edccd6&scoped=true& ***!
@@ -37328,7 +37372,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Forth Nav Bar\n")])
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-3" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [
+        _c("div", [_vm._v("weather here")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            _vm._s(_vm.userInfo.cityName + ", " + _vm.userInfo.countryName)
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37352,7 +37414,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("Fourthnavbar"), _vm._v("\n    Main her\n")], 1)
+  return _c("div", [_c("Fourthnavbar")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49527,19 +49589,15 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-browser-geolocation */ "./node_modules/vue-browser-geolocation/dist/vue-geolocation.js");
-/* harmony import */ var vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Maincomponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Maincomponent */ "./resources/js/components/Maincomponent.vue");
+/* harmony import */ var _components_Maincomponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Maincomponent */ "./resources/js/components/Maincomponent.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
-Vue.use(vue_browser_geolocation__WEBPACK_IMPORTED_MODULE_0___default.a);
-
 var app = new Vue({
   el: '#app',
   components: {
-    Maincomponent: _components_Maincomponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Maincomponent: _components_Maincomponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -49778,9 +49836,9 @@ closeMenu.addEventListener('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\navbar.js */"./resources/js/navbar.js");
-module.exports = __webpack_require__(/*! C:\coding\projects\projects4\news\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\projects\project4\news\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\projects\project4\news\resources\js\navbar.js */"./resources/js/navbar.js");
+module.exports = __webpack_require__(/*! D:\projects\project4\news\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

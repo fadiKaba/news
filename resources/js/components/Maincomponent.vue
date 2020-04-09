@@ -1,7 +1,8 @@
 <template>
     <div>
+        
         <Fourthnavbar></Fourthnavbar>
-        Main her
+    
     </div>
 </template>
 <script>
