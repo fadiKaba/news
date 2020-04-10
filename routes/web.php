@@ -21,8 +21,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'admin'], function(){
+Route::group(['middleware' => 'auth'], function(){
 
-     Route::get('/users/get', 'UsersController@index');
+    Route::group(['middleware' => 'admin'], function(){
+
+        Route::get('/users/get', 'UsersController@index');
+        Route::post('/users/gategories', 'UsersController@getCategories');
+        Route::post('/user/addcategory/{userId}/{catId}', 'UsersController@addCategory');
+
+   });
 
 });
+
+

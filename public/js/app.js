@@ -2057,6 +2057,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 //
@@ -2103,17 +2105,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Useradmin',
   props: ['users'],
   data: function data() {
     return {
       usersArr: [],
-      userToEdit: ''
+      userToEdit: '',
+      adminCat: '',
+      remainedCat: '',
+      allCats: ''
     };
   },
   mounted: function mounted() {
     this.makeUsersArr(this.users);
+    this.getCategories();
   },
   methods: {
     makeUsersArr: function makeUsersArr(users) {
@@ -2136,7 +2158,48 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     },
     editUser: function editUser(userId) {
-      this.userToEdit = 'us' + userId;
+      if (this.userToEdit == 'us' + userId) {
+        this.userToEdit = '';
+      } else {
+        // this.getCategories();
+        this.userToEdit = 'us' + userId;
+      }
+    },
+    makeAdminRemainedcatVar: function makeAdminRemainedcatVar(catArr) {
+      var _this2 = this;
+
+      console.log(catArr);
+      console.log(this.allCats);
+
+      if (catArr != null && catArr !== '') {
+        this.remainedCat = [];
+
+        var _loop = function _loop(i) {
+          var is = catArr.find(function (x) {
+            return x.id == _this2.allCats[i].id;
+          });
+
+          if (is == undefined) {
+            _this2.remainedCat.push(_this2.allCats[i]);
+          }
+        };
+
+        for (var i = 0; i < this.allCats.length; i++) {
+          _loop(i);
+        }
+      }
+    },
+    getCategories: function getCategories() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/users/gategories').then(function (response) {
+        _this3.allCats = response.data;
+      });
+    },
+    addCategory: function addCategory(userId, catId) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/user/addcategory/".concat(userId, "/").concat(catId)).then(function (response) {
+        console.log(response);
+      });
     }
   }
 });
@@ -6705,7 +6768,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".edit-admin[data-v-2ca69689] {\n  background-color: #567b95;\n  font-size: 0.6rem;\n  font-weight: bold;\n  border: none;\n  color: #fff;\n  border-radius: 3px;\n  padding: 3px 5px;\n  transition: 0.4s;\n  font-family: Arial, Helvetica, sans-serif;\n}\n.edit-admin[data-v-2ca69689]:hover {\n  background-color: #326891;\n  text-decoration: none;\n  color: #fff;\n}", ""]);
+exports.push([module.i, ".edit-admin[data-v-2ca69689] {\n  background-color: #567b95;\n  font-size: 0.6rem;\n  font-weight: bold;\n  border: none;\n  color: #fff;\n  border-radius: 3px;\n  padding: 3px 5px;\n  transition: 0.4s;\n  font-family: Arial, Helvetica, sans-serif;\n}\n.edit-admin[data-v-2ca69689]:hover {\n  background-color: #326891;\n  text-decoration: none;\n  color: #fff;\n}\n.inputs td[data-v-2ca69689] {\n  padding: 5px 5px;\n}", ""]);
 
 // exports
 
@@ -38370,48 +38433,54 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _vm._l(_vm.usersArr, function(user) {
-          return _c("tr", { key: "us" + user.id }, [
-            _c(
-              "td",
-              { class: _vm.userToEdit != "us" + user.id ? "" : "text-danger" },
-              [_vm._v(_vm._s(user.id))]
-            ),
+          return _c("tr", { key: "us" + user.id, staticClass: "inputs" }, [
+            _c("td", [
+              _c("input", {
+                class:
+                  _vm.userToEdit != "us" + user.id
+                    ? "form-control"
+                    : "form-control border-danger",
+                attrs: { disabled: "" },
+                domProps: { value: user.id }
+              })
+            ]),
             _vm._v(" "),
             _c("td", [
               _vm.userToEdit != "us" + user.id
-                ? _c("span", [_vm._v(_vm._s(user.name))])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.userToEdit == "us" + user.id
                 ? _c("input", {
+                    staticClass: "form-control",
+                    attrs: { disabled: "" },
+                    domProps: { value: user.name }
+                  })
+                : _c("input", {
                     staticClass: "form-control border-danger",
                     attrs: { name: "" },
                     domProps: { value: user.name }
                   })
-                : _vm._e()
             ]),
             _vm._v(" "),
             _c("td", [
               _vm.userToEdit != "us" + user.id
-                ? _c("span", [_vm._v(_vm._s(user.email))])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.userToEdit == "us" + user.id
                 ? _c("input", {
+                    staticClass: "form-control",
+                    attrs: { disabled: "" },
+                    domProps: { value: user.email }
+                  })
+                : _c("input", {
                     staticClass: "form-control border-danger",
                     attrs: { name: "" },
                     domProps: { value: user.email }
                   })
-                : _vm._e()
             ]),
             _vm._v(" "),
             _c("td", [
               _vm.userToEdit != "us" + user.id
-                ? _c("span", [_vm._v(_vm._s(user.role))])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.userToEdit == "us" + user.id
-                ? _c(
+                ? _c("input", {
+                    staticClass: "form-control",
+                    attrs: { disabled: "" },
+                    domProps: { value: user.role }
+                  })
+                : _c(
                     "select",
                     {
                       staticClass: "form-control border-danger",
@@ -38424,29 +38493,124 @@ var render = function() {
                       _c("option", [_vm._v("1")])
                     ]
                   )
-                : _vm._e()
             ]),
             _vm._v(" "),
             _c("td", [
               _vm.userToEdit != "us" + user.id
-                ? _c("span", [_vm._v("cat")])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.userToEdit == "us" + user.id
-                ? _c(
-                    "select",
-                    {
-                      staticClass: "form-control border-danger",
-                      attrs: { name: "", value: "cat" }
-                    },
-                    _vm._l(user.categories, function(category) {
-                      return _c("option", { key: "cat" + category.id }, [
-                        _vm._v(_vm._s(category.category))
-                      ])
-                    }),
-                    0
-                  )
-                : _vm._e()
+                ? _c("div", { staticClass: "dropdown", attrs: { name: "" } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn dropdown-toggle",
+                        attrs: {
+                          type: "button",
+                          id: "dropdownMenuButton",
+                          "data-toggle": "dropdown",
+                          "aria-haspopup": "true",
+                          "aria-expanded": "false"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Categories\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu",
+                        attrs: { "aria-labelledby": "dropdownMenuButton" }
+                      },
+                      _vm._l(user.categories, function(category) {
+                        return _c(
+                          "a",
+                          {
+                            key: "cat" + category.id,
+                            staticClass: "dropdown-item",
+                            attrs: { href: "#" }
+                          },
+                          [_vm._v(_vm._s(category.category))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                : _c("div", { staticClass: "dropdown", attrs: { name: "" } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn border-danger dropdown-toggle",
+                        attrs: {
+                          type: "button",
+                          id: "dropdownMenuButton",
+                          "data-toggle": "dropdown",
+                          "aria-haspopup": "true",
+                          "aria-expanded": "false"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                       + Categories\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu",
+                        attrs: { "aria-labelledby": "dropdownMenuButton" }
+                      },
+                      [
+                        _vm._l(_vm.remainedCat, function(category) {
+                          return _c(
+                            "a",
+                            {
+                              key: "cat" + category.id,
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.addCategory(user.id, category.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("span", { staticClass: "text-success" }, [
+                                _vm._v("+")
+                              ]),
+                              _vm._v(" " + _vm._s(category.category))
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _vm._l(user.categories, function(category) {
+                          return _c(
+                            "a",
+                            {
+                              key: "cat" + category.id,
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.addCategory(user.id, category.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("span", { staticClass: "text-danger" }, [
+                                _vm._v("-")
+                              ]),
+                              _vm._v(" " + _vm._s(category.category))
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
             ]),
             _vm._v(" "),
             _c("td", [
@@ -38456,7 +38620,8 @@ var render = function() {
                   staticClass: "edit-admin bg-dark",
                   on: {
                     click: function($event) {
-                      return _vm.editUser(user.id)
+                      _vm.editUser(user.id),
+                        _vm.makeAdminRemainedcatVar(user.categories)
                     }
                   }
                 },
@@ -38473,7 +38638,8 @@ var render = function() {
         })
       ],
       2
-    )
+    ),
+    _vm._v(_vm._s(_vm.remainedCat) + "\n")
   ])
 }
 var staticRenderFns = [
