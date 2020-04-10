@@ -2136,6 +2136,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   mounted: function mounted() {
     this.makeUsersArr(this.users);
     this.getCategories();
+    $(function () {
+      $('.dropdown-menu').on('click', function (event) {
+        event.stopPropagation();
+      });
+    });
   },
   methods: {
     makeUsersArr: function makeUsersArr(users) {
@@ -2157,30 +2162,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _this.usersArr.push(usr);
       });
     },
+    getUsers: function getUsers() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/users/getusersjson').then(function (response) {
+        _this2.usersArr = [];
+
+        _this2.makeUsersArr(response.data);
+      });
+    },
     editUser: function editUser(userId) {
       if (this.userToEdit == 'us' + userId) {
         this.userToEdit = '';
+        this.getUsers();
       } else {
-        // this.getCategories();
         this.userToEdit = 'us' + userId;
       }
     },
     makeAdminRemainedcatVar: function makeAdminRemainedcatVar(catArr) {
-      var _this2 = this;
-
-      console.log(catArr);
-      console.log(this.allCats);
+      var _this3 = this;
 
       if (catArr != null && catArr !== '') {
         this.remainedCat = [];
+        this.adminCat = [];
 
         var _loop = function _loop(i) {
           var is = catArr.find(function (x) {
-            return x.id == _this2.allCats[i].id;
+            return x.id == _this3.allCats[i].id;
           });
 
           if (is == undefined) {
-            _this2.remainedCat.push(_this2.allCats[i]);
+            _this3.remainedCat.push(_this3.allCats[i]);
+          } else {
+            _this3.adminCat.push(_this3.allCats[i]);
           }
         };
 
@@ -2190,16 +2204,37 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     },
     getCategories: function getCategories() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/users/gategories').then(function (response) {
-        _this3.allCats = response.data;
+        _this4.allCats = response.data;
       });
     },
-    addCategory: function addCategory(userId, catId) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/user/addcategory/".concat(userId, "/").concat(catId)).then(function (response) {
-        console.log(response);
+    addCategory: function addCategory(userId, category) {
+      var _this5 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/user/addcategory/".concat(userId, "/").concat(category.id)).then(function (response) {
+        if (response.data == 'detach') {
+          for (var i = 0; i < _this5.adminCat.length; i++) {
+            if (category.id == _this5.adminCat[i].id) {
+              _this5.adminCat.splice(i, 1);
+
+              _this5.remainedCat.push(category);
+            }
+          }
+        } else {
+          _this5.adminCat.push(category);
+
+          for (var _i = 0; _i < _this5.remainedCat.length; _i++) {
+            if (category.id == _this5.remainedCat[_i].id) {
+              _this5.remainedCat.splice(_i, 1);
+            }
+          }
+        }
       });
+    },
+    save: function save() {
+      this.getUsers();
     }
   }
 });
@@ -38525,11 +38560,11 @@ var render = function() {
                       },
                       _vm._l(user.categories, function(category) {
                         return _c(
-                          "a",
+                          "button",
                           {
                             key: "cat" + category.id,
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#" }
+                            staticClass: "btn",
+                            attrs: { disabled: "", href: "#" }
                           },
                           [_vm._v(_vm._s(category.category))]
                         )
@@ -38561,7 +38596,10 @@ var render = function() {
                       "div",
                       {
                         staticClass: "dropdown-menu",
-                        attrs: { "aria-labelledby": "dropdownMenuButton" }
+                        attrs: {
+                          id: "",
+                          "aria-labelledby": "dropdownMenuButton"
+                        }
                       },
                       [
                         _vm._l(_vm.remainedCat, function(category) {
@@ -38573,7 +38611,7 @@ var render = function() {
                               attrs: { href: "#" },
                               on: {
                                 click: function($event) {
-                                  return _vm.addCategory(user.id, category.id)
+                                  return _vm.addCategory(user.id, category)
                                 }
                               }
                             },
@@ -38586,7 +38624,7 @@ var render = function() {
                           )
                         }),
                         _vm._v(" "),
-                        _vm._l(user.categories, function(category) {
+                        _vm._l(_vm.adminCat, function(category) {
                           return _c(
                             "a",
                             {
@@ -38595,7 +38633,7 @@ var render = function() {
                               attrs: { href: "#" },
                               on: {
                                 click: function($event) {
-                                  return _vm.addCategory(user.id, category.id)
+                                  return _vm.addCategory(user.id, category)
                                 }
                               }
                             },
@@ -38628,7 +38666,18 @@ var render = function() {
                 [_vm._v("Edit")]
               ),
               _vm._v(" "),
-              _c("button", { staticClass: "edit-admin" }, [_vm._v("Save")]),
+              _c(
+                "button",
+                {
+                  staticClass: "edit-admin",
+                  on: {
+                    click: function($event) {
+                      return _vm.save()
+                    }
+                  }
+                },
+                [_vm._v("Save")]
+              ),
               _vm._v(" "),
               _c("button", { staticClass: "edit-admin bg-danger" }, [
                 _vm._v("Delete")
@@ -38638,8 +38687,7 @@ var render = function() {
         })
       ],
       2
-    ),
-    _vm._v(_vm._s(_vm.remainedCat) + "\n")
+    )
   ])
 }
 var staticRenderFns = [

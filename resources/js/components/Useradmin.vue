@@ -35,26 +35,26 @@
                         Categories
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a v-for="category in user.categories" :key="'cat'+category.id" class="dropdown-item" href="#">{{category.category}}</a>
+                        <button disabled v-for="category in user.categories" :key="'cat'+category.id" class="btn" href="#">{{category.category}}</button>
                     </div>
                 </div>
                 <div class="dropdown" v-else name="">
                     <button class="btn border-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                        + Categories
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a v-for="category in remainedCat" :key="'cat'+category.id" @click="addCategory(user.id, category.id)" class="dropdown-item" href="#"><span class="text-success">+</span> {{category.category}}</a>
-                        <a v-for="category in user.categories" :key="'cat'+category.id" @click="addCategory(user.id, category.id)" class="dropdown-item" href="#"><span class="text-danger">-</span> {{category.category}}</a>
+                    <div class="dropdown-menu" id="" aria-labelledby="dropdownMenuButton">
+                        <a v-for="category in remainedCat" :key="'cat'+category.id" @click="addCategory(user.id, category)" class="dropdown-item" href="#"><span class="text-success">+</span> {{category.category}}</a>
+                        <a v-for="category in adminCat" :key="'cat'+category.id" @click="addCategory(user.id, category)" class="dropdown-item" href="#"><span class="text-danger">-</span> {{category.category}}</a>
                     </div>
                 </div>
             </td>
             <td>
                 <button @click="editUser(user.id), makeAdminRemainedcatVar(user.categories)" class="edit-admin bg-dark">Edit</button>
-                <button class="edit-admin">Save</button>
+                <button @click="save()" class="edit-admin">Save</button>
                 <button class="edit-admin bg-danger">Delete</button>
             </td>
         </tr>
-    </table>{{remainedCat}}
+    </table>
 </div>
 </template>
 <script>
@@ -76,6 +76,13 @@ export default {
     mounted: function(){
       this.makeUsersArr(this.users);
       this.getCategories();
+          
+        $(function() {
+            $('.dropdown-menu').on('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+
     },
     methods:{
         makeUsersArr: function(users){
@@ -94,23 +101,31 @@ export default {
                 this.usersArr.push(usr);
             });
         },
+        getUsers: function(){
+            axios.get('/users/getusersjson')
+                .then((response) => {
+                    this.usersArr = [];
+                    this.makeUsersArr(response.data);
+                });
+        },
         editUser: function(userId){
             if(this.userToEdit == 'us'+userId){
                 this.userToEdit = '';
+                this.getUsers();
             }else{
-               // this.getCategories();
                 this.userToEdit = 'us'+userId
             }          
         },
         makeAdminRemainedcatVar: function(catArr){
-            console.log(catArr);
-            console.log(this.allCats)
             if(catArr != null && catArr !== ''){
                 this.remainedCat = [];
+                this.adminCat = [];
                  for(let i = 0; i < this.allCats.length; i++){
                     let is = catArr.find(x => x.id == this.allCats[i].id)
                     if(is == undefined){
                         this.remainedCat.push(this.allCats[i])
+                    }else{
+                        this.adminCat.push(this.allCats[i])
                     }
                  }
             }                     
@@ -121,11 +136,28 @@ export default {
                 this.allCats = response.data;
             })
         },
-        addCategory: function(userId, catId){
-            axios.post(`/user/addcategory/${userId}/${catId}`)
+        addCategory: function(userId, category){
+            axios.post(`/user/addcategory/${userId}/${category.id}`)
             .then((response) => {
-                console.log(response)
+                if(response.data == 'detach'){
+                    for(let i = 0; i < this.adminCat.length; i++){
+                        if(category.id == this.adminCat[i].id){
+                            this.adminCat.splice(i, 1);
+                            this.remainedCat.push(category)
+                        }
+                    }
+                }else{
+                    this.adminCat.push(category);
+                    for(let i = 0; i < this.remainedCat.length; i++){
+                        if(category.id == this.remainedCat[i].id){
+                            this.remainedCat.splice(i, 1);
+                        }
+                    }
+                }
             })
+        },
+        save: function(){
+            this.getUsers();
         }
     }
 }

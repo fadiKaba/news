@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['middleware' => 'admin'], function(){
 
         Route::get('/users/get', 'UsersController@index');
+        Route::get('/users/getusersjson', 'UsersController@getUsersJson');
         Route::post('/users/gategories', 'UsersController@getCategories');
         Route::post('/user/addcategory/{userId}/{catId}', 'UsersController@addCategory');
 
