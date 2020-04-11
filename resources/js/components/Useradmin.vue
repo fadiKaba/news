@@ -1,6 +1,7 @@
 <template>  
    <div>
-       <p class="alert alert-success fade show" v-if="success != ''">{{success}}</p>
+       <p class="alert alert-success fade show mt-1" v-if="success != ''">{{success}}</p>
+       <p class="alert alert-danger fade show mt-1" v-if="errMessage != ''">{{errMessage}}</p>
     <table class="table">
         <tr>
             <th>ID</th>
@@ -13,19 +14,36 @@
 
         <tr v-for="user in usersArr" :key="'us'+user.id" class="inputs">
             <td>
-                <input disabled :class="userToEdit != 'us'+user.id ? 'form-control' : 'form-control border-danger'" :value="user.id">
+                <input disabled :class="userToEdit != 'us'+user.id ? 'form-control' : 'form-control border-info'" :value="user.id">
             </td>
             <td>
-                <input disabled class="form-control" v-if="userToEdit != 'us'+user.id" :value="user.name">
-                <input class="form-control border-danger" v-else v-model="userName" :placeholder="user.name">
+                <input 
+                disabled 
+                class="form-control" 
+                v-if="userToEdit != 'us'+user.id" 
+                :value="user.name">
+                <input 
+                :class="errors != '' && errors.name ? 'form-control border-danger' : 'form-control border-info'" 
+                v-else 
+                v-model="userName" 
+                :placeholder="user.name">
+                <small class="text-danger" v-if="'us'+user.id == userToEdit && errors != '' && errors.name">{{errors.name[0]}}</small>
             </td>
             <td>
-                <input disabled class="form-control" v-if="userToEdit != 'us'+user.id" :value="user.email">
-                <input class="form-control border-danger" v-else v-model="userEmail"  :placeholder="user.email">
+                <input 
+                disabled 
+                class="form-control" 
+                v-if="userToEdit != 'us'+user.id" 
+                :value="user.email">
+                <input 
+                :class="errors != '' && errors.email ? 'form-control border-danger' : 'form-control border-info'" 
+                v-else v-model="userEmail"  
+                :placeholder="user.email">
+                <small class="text-danger" v-if="'us'+user.id == userToEdit && errors != '' && errors.email">{{errors.email[0]}}</small>
             </td>
             <td>
                 <input disabled class="form-control" v-if="userToEdit != 'us'+user.id" :value="user.role == 1 ? 'Admin' : 'Subscriber'">
-                <select class="form-control border-danger" v-else v-model="userRole">
+                <select class="form-control border-info" v-else v-model="userRole">
                     <option value="0">Subsciber</option>
                     <option value="1">Admin</option>
                 </select>
@@ -40,7 +58,7 @@
                     </div>
                 </div>
                 <div class="dropdown" v-else name="">
-                    <button class="btn border-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn border-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                        <span class="text-success">+</span>/<span class="text-danger">-</span> Categories
                     </button>
                     <div class="dropdown-menu" id="" aria-labelledby="dropdownMenuButton">
@@ -52,7 +70,7 @@
             <td>
                 <button @click="editUser(user.id), makeAdminRemainedcatVar(user.categories)" class="edit-admin bg-dark">Edit</button>
                 <button @click="save(user.id, user.name)" class="edit-admin">Save</button>
-                <button class="edit-admin bg-danger">Delete</button>
+                <button @click="destroy(user.id, user.name)" class="edit-admin bg-danger">Delete</button>
             </td>
         </tr>
     </table>
@@ -73,6 +91,8 @@ export default {
             remainedCat:'',
             allCats: '',
             success:'',
+            errMessage:'',
+            errors:'',
             userName:'',
             userEmail:'',
             userRole:''
@@ -167,9 +187,11 @@ export default {
             this.userName = '';
             this.userEmail ='';
             this.userRole = '';
+            this.errMessage = '';
+            this.errors = '';
         },
         save: function(userId, userN){
-            this.getUsers();
+           // this.getUsers();
             if(this.userName != '' || this.userEmail != '' || this. userRole != ''){
                 axios.post(`/user/save/${userId}`, {
                     name: this.userName,
@@ -182,9 +204,30 @@ export default {
                         this.success = userN + ' updated successfully';
                         this.allNull();                      
                     }
+                }).catch((err) => {
+                    if(err.response){                      
+                        this.errMessage = err.response.data.message;
+                        this.errors = err.response.data.errors;
+                    }
                 });
             }           
         },
+        destroy: function(userId, userName){
+            let ask = confirm('Delete ' + userName + '?')
+            if(ask){
+                axios.post(`/user/destroy/${userId}`)
+                .then((response) => {
+                    if(response.data == 'deleted'){
+                        for(let i = 0; i < this.usersArr.length; i ++){
+                            if(this.usersArr[i].id == userId){
+                                this.usersArr.splice(i, 1);
+                            }
+                        }
+                        this.success = userName + ' deleted successfully'
+                    }
+                })
+            }            
+        }
     },
     watch: {
         success: function(newVal, oldVal){

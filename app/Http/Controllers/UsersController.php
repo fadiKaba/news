@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Admincat;
+use Hash;
 
 class UsersController extends Controller
 {   
@@ -44,12 +45,31 @@ class UsersController extends Controller
         return 'attatch';
     }
 
-    public function store(Request $request, $userId){
+    public function store(Request $request){
+
+        $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|unique:users|email',
+            'password' => 'required',
+            'role' => 'required'
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => $request->role,
+        ]);
+
+       return 'saved';
+    }
+
+    public function update(Request $request, $userId){
         $user = User::findOrFail($userId);
 
         $request->validate([
             'name' => 'nullable|min:3',
-            'email' => 'nullable|email',
+            'email' => 'nullable|unique:users|email',
             'role' => 'nullable|integer'
         ]);
         
@@ -66,6 +86,17 @@ class UsersController extends Controller
             
         }
         return 'saved';
+    }
+
+    public function destroy($userId){
+        $user = User::findOrFail($userId);
+        if($user->is_admin == 1){
+            foreach($user->category as $cat){
+                $user->category()->detach($cat->id);
+             } 
+        }
+        $user->delete();
+        return 'deleted';
     }
    
 }

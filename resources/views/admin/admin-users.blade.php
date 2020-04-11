@@ -21,7 +21,9 @@
         <span class="bg-secondary text-white px-3 py-1">A d m i n s</span>
         <Useradmin :users="{{$users}}" :time="time"></Useradmin>
     </div>
-    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+      <Newuser></Newuser>
+    </div>
 </div>
 
 
