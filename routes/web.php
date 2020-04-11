@@ -27,8 +27,11 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::get('/users/get', 'UsersController@index');
         Route::get('/users/getusersjson', 'UsersController@getUsersJson');
+        Route::get('/users/getusersclientjson', 'UsersController@getUsersClientJson');
         Route::post('/users/gategories', 'UsersController@getCategories');
         Route::post('/user/addcategory/{userId}/{catId}', 'UsersController@addCategory');
+        Route::post('/user/save/{userId}', 'UsersController@store');
+
 
    });
 
