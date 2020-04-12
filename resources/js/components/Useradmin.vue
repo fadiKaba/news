@@ -100,7 +100,7 @@ export default {
         }
     },
     mounted: function(){
-      //  console.log(this.users)
+      // console.log(this.users)
       this.makeUsersArr(this.users);
       this.getCategories();
           

@@ -61,6 +61,7 @@
             </td>
         </tr>
     </table>
+    <button v-if="currentPage < lastPage" class="btn main-btn" @click="showMore">Show More</button>
 </div>
 </template>
 <script>
@@ -79,11 +80,15 @@ export default {
             errors:'',
             userName:'',
             userEmail:'',
-            userRole:''
+            userRole:'',
+            currentPage:1,
+            lastPage:'',
         }
     },
     mounted: function(){
-      this.makeUsersArr(this.users);
+     //  console.log(this.users);
+    //   this.makeUsersArr(this.users);
+    this.getUsers();
           
     },
     methods:{
@@ -104,10 +109,18 @@ export default {
             });
         },
         getUsers: function(){
-            axios.get('/users/getusersclientjson')
+            axios.get(`/users/getusersclientjson?page=${this.currentPage}`)
                 .then((response) => {
                     this.usersArr = [];
-                    this.makeUsersArr(response.data);
+                    this.lastPage = response.data.last_page;
+                    this.makeUsersArr(response.data.data);
+                });
+        },
+        showMore: function(){
+           axios.get(`/users/getusersclientjson?page=${this.currentPage+1}`)
+                .then((response) => {
+                    this.makeUsersArr(response.data.data);
+                    this.currentPage++;
                 });
         },
         editUser: function(userId){
@@ -172,7 +185,8 @@ export default {
             
         },
         time: function(newVal, oldVal){
-            this.getUsers()
+            this.currentPage = 1;
+            this.getUsers()            
         }
     }
 }

@@ -2260,7 +2260,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     };
   },
   mounted: function mounted() {
-    //  console.log(this.users)
+    // console.log(this.users)
     this.makeUsersArr(this.users);
     this.getCategories();
     $(function () {
@@ -2511,6 +2511,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Userclient',
@@ -2524,11 +2525,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       errors: '',
       userName: '',
       userEmail: '',
-      userRole: ''
+      userRole: '',
+      currentPage: 1,
+      lastPage: ''
     };
   },
   mounted: function mounted() {
-    this.makeUsersArr(this.users);
+    //  console.log(this.users);
+    //   this.makeUsersArr(this.users);
+    this.getUsers();
   },
   methods: {
     makeUsersArr: function makeUsersArr(users) {
@@ -2553,10 +2558,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     getUsers: function getUsers() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/users/getusersclientjson').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/users/getusersclientjson?page=".concat(this.currentPage)).then(function (response) {
         _this2.usersArr = [];
+        _this2.lastPage = response.data.last_page;
 
-        _this2.makeUsersArr(response.data);
+        _this2.makeUsersArr(response.data.data);
+      });
+    },
+    showMore: function showMore() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/users/getusersclientjson?page=".concat(this.currentPage + 1)).then(function (response) {
+        _this3.makeUsersArr(response.data.data);
+
+        _this3.currentPage++;
       });
     },
     editUser: function editUser(userId) {
@@ -2577,7 +2592,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.errors = '';
     },
     save: function save(userId, userN) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.userName != '' || this.userEmail != '' || this.userRole != '') {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/user/save/".concat(userId), {
@@ -2586,36 +2601,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           role: this.userRole
         }).then(function (response) {
           if (response.data == 'saved') {
-            _this3.getUsers();
+            _this4.getUsers();
 
-            _this3.userToEdit = '';
-            _this3.success = userN + ' updated successfully';
+            _this4.userToEdit = '';
+            _this4.success = userN + ' updated successfully';
 
-            _this3.allNull();
+            _this4.allNull();
           }
         })["catch"](function (err) {
           if (err.response) {
-            _this3.errMessage = err.response.data.message;
-            _this3.errors = err.response.data.errors;
+            _this4.errMessage = err.response.data.message;
+            _this4.errors = err.response.data.errors;
           }
         });
       }
     },
     destroy: function destroy(userId, userName) {
-      var _this4 = this;
+      var _this5 = this;
 
       var ask = confirm('Delete ' + userName + '?');
 
       if (ask) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/user/destroy/".concat(userId)).then(function (response) {
           if (response.data == 'deleted') {
-            for (var i = 0; i < _this4.usersArr.length; i++) {
-              if (_this4.usersArr[i].id == userId) {
-                _this4.usersArr.splice(i, 1);
+            for (var i = 0; i < _this5.usersArr.length; i++) {
+              if (_this5.usersArr[i].id == userId) {
+                _this5.usersArr.splice(i, 1);
               }
             }
 
-            _this4.success = userName + ' deleted successfully';
+            _this5.success = userName + ' deleted successfully';
           }
         });
       }
@@ -2623,13 +2638,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
   watch: {
     success: function success(newVal, oldVal) {
-      var _this5 = this;
+      var _this6 = this;
 
       setTimeout(function () {
-        _this5.success = '';
+        _this6.success = '';
       }, 7000);
     },
     time: function time(newVal, oldVal) {
+      this.currentPage = 1;
       this.getUsers();
     }
   }
@@ -39719,7 +39735,15 @@ var render = function() {
         })
       ],
       2
-    )
+    ),
+    _vm._v(" "),
+    _vm.currentPage < _vm.lastPage
+      ? _c(
+          "button",
+          { staticClass: "btn main-btn", on: { click: _vm.showMore } },
+          [_vm._v("Show More")]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
