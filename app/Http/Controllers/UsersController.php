@@ -12,7 +12,8 @@ class UsersController extends Controller
 
     public function index(){
         $users = User::where('is_admin', 1)->with('category')->get();
-        $usersClient = User::where('is_admin', 0)->get();
+       $usersClient = User::where('is_admin', 0)->paginate(2);
+       $usersClient = User::where('is_admin', 0)->get();
         return view('admin.admin-users')->with(compact('users', 'usersClient'));
     }
 

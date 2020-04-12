@@ -74,6 +74,19 @@
 </div> --}}
 
 <!-- firs navbar -->
+@if(Auth::check() && Auth::user()->is_admin == 1)
+<div class="">
+    <nav class="py-1 navbar navbar-dark bg-dark">        
+        @if(count(Auth::user()->category) == 0)
+        <a class="btn mr-auto main-btn bg-warning text-dark" href="/users/get">Main Administrator</a> 
+        @endif
+        @foreach(Auth::user()->category as $cat)
+        <a class="btn main-btn text-white">{{$cat->category}}</a>
+        @endforeach
+        <button class="btn ml-auto main-btn bg-warning text-dark" disabled href="/users/get">Administrator</button>
+    </nav> 
+</div>     
+@endif
 <div class="container first-nav d-none d-md-block">
     <div class="row pt-1">
         <div class="col-md-4 d-flex">
@@ -105,7 +118,6 @@
                 <a id="navbarDropdown" class="dropdown-toggle btn main-btn text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
-
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();

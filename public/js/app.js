@@ -2239,6 +2239,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Useradmin',
@@ -2259,6 +2260,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     };
   },
   mounted: function mounted() {
+    //  console.log(this.users)
     this.makeUsersArr(this.users);
     this.getCategories();
     $(function () {
@@ -39312,18 +39314,31 @@ var render = function() {
                         staticClass: "dropdown-menu",
                         attrs: { "aria-labelledby": "dropdownMenuButton" }
                       },
-                      _vm._l(user.categories, function(category) {
-                        return _c(
-                          "button",
-                          {
-                            key: "cat" + category.id,
-                            staticClass: "btn",
-                            attrs: { disabled: "", href: "#" }
-                          },
-                          [_vm._v(_vm._s(category.category))]
-                        )
-                      }),
-                      0
+                      [
+                        user.categories.length == 0
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn text-danger font-weight-bold",
+                                attrs: { disabled: "", href: "#" }
+                              },
+                              [_vm._v("Main Admin")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm._l(user.categories, function(category) {
+                          return _c(
+                            "button",
+                            {
+                              key: "cat" + category.id,
+                              staticClass: "btn",
+                              attrs: { disabled: "", href: "#" }
+                            },
+                            [_vm._v(_vm._s(category.category))]
+                          )
+                        })
+                      ],
+                      2
                     )
                   ])
                 : _c("div", { staticClass: "dropdown", attrs: { name: "" } }, [

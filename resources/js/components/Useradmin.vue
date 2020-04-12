@@ -54,6 +54,7 @@
                         Categories
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button disabled v-if="user.categories.length == 0" class="btn text-danger font-weight-bold" href="#">Main Admin</button>
                         <button disabled v-for="category in user.categories" :key="'cat'+category.id" class="btn" href="#">{{category.category}}</button>
                     </div>
                 </div>
@@ -99,6 +100,7 @@ export default {
         }
     },
     mounted: function(){
+      //  console.log(this.users)
       this.makeUsersArr(this.users);
       this.getCategories();
           
