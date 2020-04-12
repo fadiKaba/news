@@ -2,6 +2,7 @@
    <div>
        <p class="alert alert-success fade show mt-1" v-if="success != ''">{{success}}</p>
        <p class="alert alert-danger fade show mt-1" v-if="errMessage != ''">{{errMessage}}</p>
+       
     <table class="table">
         <tr>
             <th>ID</th>
@@ -10,7 +11,6 @@
             <th>Role</th>
             <th>Edit</th>
         </tr>
-
         <tr v-for="user in usersArr" :key="'us'+user.id" class="inputs">
             <td>
                 <input 
@@ -59,8 +59,8 @@
                 <button @click="save(user.id, user.name)" class="edit-admin">Save</button>
                 <button @click="destroy(user.id, user.name)" class="edit-admin bg-danger">Delete</button>
             </td>
-        </tr>
-    </table>
+        </tr>        
+    </table>   
     <button v-if="currentPage < lastPage" class="btn main-btn" @click="showMore">Show More</button>
 </div>
 </template>
@@ -219,4 +219,10 @@ $color2: #326891;
         padding: 5px 5px;
     }
 }
+// .fade-enter-active, .fade-leave-active {
+//   transition: opacity .5s;
+// }
+// .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+//   opacity: 0;
+// }
 </style>
