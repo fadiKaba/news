@@ -10997,6 +10997,11 @@ a.text-dark:focus {
   }
 }
 
+#single-post h3 {
+  font-family: "Domine", serif;
+  font-size: 2rem;
+}
+
 .main-btn {
   background-color: #567b95;
   font-size: 0.7rem;

@@ -1,15 +1,17 @@
 <template>
       <div class="main-fourth-navbar">
           <div class="row py-2">
-              <div v-for="post in posts" :key="'fpo'+post.id" class="col-md-3">
-                   <div class="media">
-                        <img :src="'/images/fourth-bar/'+post.src" class="mr-3" alt="..." width="60px">
+              <div v-for="post in posts" :key="'fpo'+post.id" class="col-md-3 border-right">
+                  <a :href="'/forthbar/posts/'+ post.id" class="text-decoration-none text-dark">
+                      <div class="media">
+                        <img :src="'/images/single-post-photos/'+post.src" class="mr-3" alt="..." width="60px">
                         <div class="media-body">
                             <h5 class="my-0">{{post.title}}</h5>
                             {{maxLength(post.body, '52')}}
                             <button class="mt-1 edit-admin" v-if="authmain">Edit</button>
                         </div>
-                    </div>
+                      </div>
+                   </a> 
               </div>
               <div class="col-md-3 text-right">
                   <div v-if="weatherInfo != ''" class="row">
@@ -24,6 +26,7 @@
                   <p v-if="userInfo != ''" class="area">{{userInfo.cityName +', '+ userInfo.countryName}}</p>
               </div>
           </div>
+          <div class="bor"></div>
       </div>
 </template>
 <script>
@@ -122,6 +125,11 @@ export default {
                     font-size: 0.7rem;
                 }
             }
+         }
+         .bor{
+             height: 4px;
+             border-top: 1px solid #000;
+             border-bottom: 1px solid #000;
          }
      }
 </style>

@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/forthbar/posts', 'FourtbarelementsController@index');
+Route::get('/forthbar/posts/{postId}', 'FourtbarelementsController@show');
 
 Route::group(['middleware' => 'auth'], function(){
 

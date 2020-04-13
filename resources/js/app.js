@@ -8,10 +8,11 @@ window.Vue = require('vue');
  import Useradmin from './components/Useradmin';
  import Userclient from './components/Userclient';
  import Newuser from './components/Newuser';
+ import Singlepost from './components/Singlepost';
 
 const app = new Vue({
     el: '#app',
-    components:{Maincomponent, Useradmin, Userclient, Newuser},
+    components:{Maincomponent, Useradmin, Userclient, Newuser, Singlepost},
     data: function(){
         return{          
             time: ''

@@ -10,4 +10,9 @@ class FourtbarelementsController extends Controller
         $posts = Fourthbarelement::all();
         return $posts;
     }
+
+    public function show($postId){
+        $post = Fourthbarelement::findOrFail($postId);
+        return view('single-post')->with(compact('post'));
+    }
 }

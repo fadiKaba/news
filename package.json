@@ -23,7 +23,5 @@
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     },
-    "dependencies": {
-        "vue-browser-geolocation": "^1.8.0"
-    }
+    "dependencies": {}
 }
