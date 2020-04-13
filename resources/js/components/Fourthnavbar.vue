@@ -1,30 +1,13 @@
 <template>
       <div class="main-fourth-navbar">
           <div class="row py-2">
-              <div class="col-md-3">
+              <div v-for="post in posts" :key="'fpo'+post.id" class="col-md-3">
                    <div class="media">
-                        <img src="/images/img1.jpg" class="mr-3" alt="..." width="60px">
+                        <img :src="'/images/fourth-bar/'+post.src" class="mr-3" alt="..." width="60px">
                         <div class="media-body">
-                            <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, 
-                        </div>
-                    </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="media">
-                        <img src="/images/img1.jpg" class="mr-3" alt="..." width="60px">
-                        <div class="media-body">
-                            <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, 
-                        </div>
-                    </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="media">
-                        <img src="/images/img1.jpg" class="mr-3" alt="..." width="60px">
-                        <div class="media-body">
-                            <h5 class="mt-0">Media heading</h5>
-                            Cras sit amet nibh libero, 
+                            <h5 class="my-0">{{post.title}}</h5>
+                            {{maxLength(post.body, '52')}}
+                            <button class="mt-1 edit-admin" v-if="authmain">Edit</button>
                         </div>
                     </div>
               </div>
@@ -49,15 +32,20 @@ import axios from 'axios';
 
 export default {
     name:'Fourthnavbar',
+    props:['authmain'],
     data: function(){
       return {
           userInfo: '',
           weatherInfo: '',
+          posts:[],
       }
     },
     mounted: function(){
-     // this.getIpAdress();
+      //you shod turn this on when you finish developing your website weather app
+      // this.getIpAdress(); 
       
+      this.getPosts();
+
     },
     methods:{
         getIpAdress: function(){
@@ -107,13 +95,29 @@ export default {
             //console.log(err)
             });
         },
-    },    
+        maxLength: function(str, max){
+          if(str.length > max){
+             return str.slice(0, max) + '...';
+          }else{
+              return str;
+          }
+        },
+        getPosts: function(){
+            axios.post('/forthbar/posts')
+            .then((response) => {
+                this.posts = response.data
+            })
+        } 
+    },   
 }
 </script>
 <style lang="scss" scoped>
      .main-fourth-navbar{
          .row{
             div{
+                .media{
+                    line-height: 14px;
+                }
                 .area{
                     font-size: 0.7rem;
                 }

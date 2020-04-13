@@ -14,12 +14,12 @@
 
         <tr v-for="user in usersArr" :key="'us'+user.id" class="inputs">
             <td>
-                <input disabled :class="userToEdit != 'us'+user.id ? 'form-control' : 'form-control border-info'" :value="user.id">
+                <input disabled :class="userToEdit != 'us'+user.id ? 'form-control bg-white border-0' : 'form-control border-info bg-white'" :value="user.id">
             </td>
             <td>
                 <input 
                 disabled 
-                class="form-control" 
+                class="form-control bg-white border-0" 
                 v-if="userToEdit != 'us'+user.id" 
                 :value="user.name">
                 <input 
@@ -32,7 +32,7 @@
             <td>
                 <input 
                 disabled 
-                class="form-control" 
+                class="form-control bg-white border-0" 
                 v-if="userToEdit != 'us'+user.id" 
                 :value="user.email">
                 <input 
@@ -42,7 +42,7 @@
                 <small class="text-danger" v-if="'us'+user.id == userToEdit && errors != '' && errors.email">{{errors.email[0]}}</small>
             </td>
             <td>
-                <input disabled class="form-control" v-if="userToEdit != 'us'+user.id" :value="user.role == 1 ? 'Admin' : 'Subscriber'">
+                <input disabled class="form-control bg-white border-0" v-if="userToEdit != 'us'+user.id" :value="user.role == 1 ? 'Admin' : 'Subscriber'">
                 <select class="form-control border-info" v-else v-model="userRole">
                     <option value="0">Subsciber</option>
                     <option value="1">Admin</option>

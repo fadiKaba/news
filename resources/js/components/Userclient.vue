@@ -2,7 +2,7 @@
    <div>
        <p class="alert alert-success fade show mt-1" v-if="success != ''">{{success}}</p>
        <p class="alert alert-danger fade show mt-1" v-if="errMessage != ''">{{errMessage}}</p>
-       
+       <Search :destination="'user'" :pholder="'User Email'" v-on:results="getResults"></Search>
     <table class="table">
         <tr>
             <th>ID</th>
@@ -15,13 +15,13 @@
             <td>
                 <input 
                 disabled 
-                :class="userToEdit != 'us'+user.id ? 'form-control' : 'form-control border-info'" 
+                :class="userToEdit != 'us'+user.id ? 'form-control bg-white border-0' : 'form-control border-info bg-white'" 
                 :value="user.id">
             </td>
             <td>
                 <input 
                 disabled 
-                class="form-control" 
+                class="form-control bg-white border-0" 
                 v-if="userToEdit != 'us'+user.id" 
                 :value="user.name">
                 <input 
@@ -34,7 +34,7 @@
             <td>
                 <input 
                 disabled 
-                class="form-control" 
+                class="form-control bg-white border-0" 
                 v-if="userToEdit != 'us'+user.id" 
                 :value="user.email">
                 <input 
@@ -46,7 +46,7 @@
             <td>
                 <input 
                 disabled 
-                class="form-control" 
+                class="form-control bg-white border-0" 
                 v-if="userToEdit != 'us'+user.id" 
                 :value="user.role == 1 ? 'Admin' : 'Subscriber'">
                 <select class="form-control border-info" v-else v-model="userRole">
@@ -67,10 +67,12 @@
 <script>
 
 import axios from 'axios';
+import Search from './Search';
 
 export default {
     name:'Userclient',
-    props: ['users', 'time'],
+    components:{Search},
+    props: ['time'],
     data: function(){
         return {
             usersArr:[],
@@ -175,6 +177,10 @@ export default {
                     }
                 })
             }            
+        },
+        getResults(val){
+            this.usersArr = [];
+            this.makeUsersArr(val)
         }
     },
     watch: {

@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Admincat;
 use Hash;
+use Validator;
 
 class UsersController extends Controller
 {   
 
     public function index(){
         $users = User::where('is_admin', 1)->with('category')->get();
-        $usersClient = User::where('is_admin', 0)->get();
-        return view('admin.admin-users')->with(compact('users', 'usersClient'));
+        return view('admin.admin-users')->with(compact('users'));
     }
 
     public function getUsersJson(){
@@ -23,7 +23,7 @@ class UsersController extends Controller
     
     public function getUsersClientJson(){
         // $users = User::where('is_admin', 0)->get();
-        $users= User::where('is_admin', 0)->paginate(2);
+        $users= User::where('is_admin', 0)->paginate(15);
         return $users;
     }
 
@@ -98,6 +98,23 @@ class UsersController extends Controller
         }
         $user->delete();
         return 'deleted';
+    }
+
+    public function search($val){
+
+        if($val != ''){
+           $data = ['value' => $val];
+
+            Validator::make($data, [
+                'value' => ['required','min:3']
+            ])->validate();
+
+            $va = $data['value'];
+
+            $result = User::where('email', 'Like', "%$va%")->get();
+            return $result; 
+        }
+        
     }
    
 }

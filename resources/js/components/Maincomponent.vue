@@ -1,7 +1,7 @@
 <template>
     <div>
         
-        <Fourthnavbar></Fourthnavbar>
+        <Fourthnavbar :authmain="authmain"></Fourthnavbar>
     
     </div>
 </template>
@@ -11,7 +11,11 @@ import Fourthnavbar from './Fourthnavbar';
 
 export default {
     name:'Maincomponent',
-    components:{Fourthnavbar}
+    components:{Fourthnavbar},
+    props:['authmain'],
+    mounted: function(){
+
+    }
 }
 </script>
 <style scoped>
