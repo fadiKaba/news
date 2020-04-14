@@ -3,6 +3,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+Vue.use( CKEditor );
 
  import Maincomponent from './components/Maincomponent';
  import Useradmin from './components/Useradmin';

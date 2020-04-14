@@ -16,7 +16,9 @@ class CreateFourthbarelementsTable extends Migration
         Schema::create('fourthbarelements', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('title_ar');
             $table->text('body');
+            $table->text('body_ar');
             $table->string('src');
             $table->timestamps();
         });
@@ -25,7 +27,9 @@ class CreateFourthbarelementsTable extends Migration
             DB::table('fourthbarelements')->insert(
                 array(
                     'title' => 'test '.$i,
+                    'title_ar' => 'test ar'.$i,
                     'body' => 'test body'. $i,
+                    'body_ar' => 'test body ar'. $i,
                     'src' => 'img1.jpg',
                 )
             );

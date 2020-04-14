@@ -10,9 +10,6 @@
 //navbar
 @import 'navbar';
 
-//single post
-@import 'single-post';
-
 //buttons
 @import 'buttons';
 
@@ -25,4 +22,8 @@ body{
 
 .nav-pills .nav-link.active{
    background-color: #000;
+}
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable{
+   height: 200px;
 }

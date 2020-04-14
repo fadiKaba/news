@@ -1,5 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+:root {
+  --ck-highlight-marker-green: #199c19;
+  --ck-highlight-pen-red: #ec3e6e;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10997,11 +11002,6 @@ a.text-dark:focus {
   }
 }
 
-#single-post h3 {
-  font-family: "Domine", serif;
-  font-size: 2rem;
-}
-
 .main-btn {
   background-color: #567b95;
   font-size: 0.7rem;
@@ -11056,5 +11056,9 @@ body {
 
 .nav-pills .nav-link.active {
   background-color: #000;
+}
+
+.ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable {
+  height: 200px;
 }
 
