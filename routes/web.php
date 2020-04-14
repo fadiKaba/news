@@ -21,8 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/forthbar/posts', 'FourtbarelementsController@index');
-Route::get('/forthbar/posts/{postId}', 'FourtbarelementsController@show');
+Route::post('/forthbar/posts', 'FourthbarelementsController@index');
+Route::get('/forthbar/posts/{postId}', 'FourthbarelementsController@show');
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -39,7 +39,8 @@ Route::group(['middleware' => 'auth'], function(){
             Route::post('/user/destroy/{userId}','UsersController@destroy');
             Route::post('/user/add', 'UsersController@store');
             Route::post('/user/search/{val}', 'UsersController@search');
-
+            Route::post('/post/update/mainpage/{postId}', 'FourthbarelementsController@update');
+            
         });
         
    });

@@ -12,6 +12,6 @@ class Admincat extends Model
     }
 
     public function fourth(){
-        return $this->hasMnay(Fourthbarelement::class);
+        return $this->hasMany(Fourthbarelement::class);
     }
 }

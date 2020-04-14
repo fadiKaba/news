@@ -2309,6 +2309,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2322,10 +2324,10 @@ __webpack_require__.r(__webpack_exports__);
           items: ['heading', '|', 'bold', 'italic', 'link', 'undo', 'redo', 'bulletedList', 'numberedList', 'blockQuote']
         }
       },
-      title: this.post[0].title,
-      body: this.post[0].body,
-      titleAr: this.post[0].title_ar,
-      bodyAr: this.post[0].body_ar
+      title: this.post.title,
+      body: this.post.body,
+      titleAr: this.post.title_ar,
+      bodyAr: this.post.body_ar
     };
   },
   mounted: function mounted() {
@@ -2336,8 +2338,18 @@ __webpack_require__.r(__webpack_exports__);
       var ask = confirm('Save this post ?');
 
       if (ask) {
-        var fr = new FormData('#single-post-form');
-        axios__WEBPACK_IMPORTED_MODULE_0___default()({//url: ``
+        var fr = new FormData(document.querySelector('#single-post-form'));
+        axios__WEBPACK_IMPORTED_MODULE_0___default()({
+          method: 'POST',
+          url: "/post/update/".concat(this.post.admincat.category, "/").concat(this.post.id),
+          data: fr,
+          config: {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+        }).then(function (response) {
+          console.log(response);
         });
       }
     }
@@ -39529,7 +39541,7 @@ var render = function() {
       _c("div", [
         _c("img", {
           attrs: {
-            src: "/images/single-post-photos/" + _vm.post[0].src,
+            src: "/images/single-post-photos/" + _vm.post.src,
             width: "100%"
           }
         }),
@@ -39586,6 +39598,27 @@ var render = function() {
                   },
                   expression: "body"
                 }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.body,
+                    expression: "body"
+                  }
+                ],
+                attrs: { type: "hidden", name: "body" },
+                domProps: { value: _vm.body },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.body = $event.target.value
+                  }
+                }
               })
             ],
             1
@@ -39627,17 +39660,34 @@ var render = function() {
               _vm._v(" "),
               _c("ckeditor", {
                 staticClass: "form-control",
-                attrs: {
-                  name: "body_ar",
-                  editor: _vm.editor,
-                  config: _vm.editorConfig
-                },
+                attrs: { editor: _vm.editor, config: _vm.editorConfig },
                 model: {
                   value: _vm.bodyAr,
                   callback: function($$v) {
                     _vm.bodyAr = $$v
                   },
                   expression: "bodyAr"
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.bodyAr,
+                    expression: "bodyAr"
+                  }
+                ],
+                attrs: { type: "hidden", name: "body_ar" },
+                domProps: { value: _vm.bodyAr },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.bodyAr = $event.target.value
+                  }
                 }
               })
             ],
@@ -53193,9 +53243,9 @@ closeMenu.addEventListener('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\navbar.js */"./resources/js/navbar.js");
-module.exports = __webpack_require__(/*! C:\coding\projects\projects4\news\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\projects\project4\news\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\projects\project4\news\resources\js\navbar.js */"./resources/js/navbar.js");
+module.exports = __webpack_require__(/*! D:\projects\project4\news\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

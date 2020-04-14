@@ -7,7 +7,7 @@ use App\Admincat;
 
 class Fourthbarelement extends Model
 {
-    public function category(){
+    public function admincat(){
         return $this->belongsTo(Admincat::class);
     }
 }
