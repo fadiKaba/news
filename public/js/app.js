@@ -2271,8 +2271,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
-/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
 //
 //
 //
@@ -2305,26 +2310,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Single',
   props: ['post'],
   data: function data() {
     return {
-      editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a,
+      editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default.a,
       editorConfig: {
         toolbar: {
-          items: ['bold', 'italic', 'link', 'undo', 'redo', 'bulletedList', 'numberedList', 'blockQuote']
+          items: ['heading', '|', 'bold', 'italic', 'link', 'undo', 'redo', 'bulletedList', 'numberedList', 'blockQuote']
         }
       },
-      title: '',
-      body: '',
-      titleAr: '',
-      bodyAr: ''
+      title: this.post[0].title,
+      body: this.post[0].body,
+      titleAr: this.post[0].title_ar,
+      bodyAr: this.post[0].body_ar
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    console.log(this.post);
+  },
   methods: {
-    save: function save() {}
+    save: function save() {
+      var ask = confirm('Save this post ?');
+
+      if (ask) {
+        var fr = new FormData('#single-post-form');
+        axios__WEBPACK_IMPORTED_MODULE_0___default()({//url: ``
+        });
+      }
+    }
   }
 });
 
@@ -39513,7 +39529,7 @@ var render = function() {
       _c("div", [
         _c("img", {
           attrs: {
-            src: "/images/single-post-photos/" + _vm.post.src,
+            src: "/images/single-post-photos/" + _vm.post[0].src,
             width: "100%"
           }
         }),
@@ -39524,12 +39540,14 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", [
-        _c("form", { attrs: { action: "" } }, [
+        _c("form", { attrs: { id: "single-post-form", action: "" } }, [
           _c(
             "div",
             { staticClass: "my-3" },
             [
               _c("h4", [_vm._v("English")]),
+              _vm._v(" "),
+              _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("input", {
@@ -39611,7 +39629,6 @@ var render = function() {
                 staticClass: "form-control",
                 attrs: {
                   name: "body_ar",
-                  id: "txt",
                   editor: _vm.editor,
                   config: _vm.editorConfig
                 },
@@ -39644,7 +39661,19 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "file", name: "img" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -53164,9 +53193,9 @@ closeMenu.addEventListener('click', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\project4\news\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\projects\project4\news\resources\js\navbar.js */"./resources/js/navbar.js");
-module.exports = __webpack_require__(/*! D:\projects\project4\news\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\coding\projects\projects4\news\resources\js\navbar.js */"./resources/js/navbar.js");
+module.exports = __webpack_require__(/*! C:\coding\projects\projects4\news\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

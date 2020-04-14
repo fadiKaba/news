@@ -20,6 +20,7 @@ class CreateFourthbarelementsTable extends Migration
             $table->text('body');
             $table->text('body_ar');
             $table->string('src');
+            $table->integer('admincat_id');
             $table->timestamps();
         });
 
@@ -31,6 +32,7 @@ class CreateFourthbarelementsTable extends Migration
                     'body' => 'test body'. $i,
                     'body_ar' => 'test body ar'. $i,
                     'src' => 'img1.jpg',
+                    'admincat_id' => 1,
                 )
             );
         }
