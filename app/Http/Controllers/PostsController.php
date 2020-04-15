@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Admincat;
+use App\Continent;
 use File;
 use Auth;
 use Image;
@@ -13,17 +14,21 @@ use Image;
 class PostsController extends Controller
 {   
     public function index($adminCatId){
+        $category = Admincat::findOrFail($adminCatId);
         $posts = Post::where('admincat_id', $adminCatId)->get();
-        $authcat = false;
+        $user = 'false';
+        $authcat = 'false';
         if(Auth::check() && Auth::user()->is_admin == 1 & count(Auth::user()->category) > 0){
             for($i = 0; $i < count(Auth::user()->category); $i++){
                 if(Auth::user()->category[$i]->id == $adminCatId){
-                    $authcat = true;
+                    $authcat = 'true';
                 }
             }
         }
-        
-        return view('category')->with(compact('posts', 'authcat'));
+        if(Auth::check()){
+            $user = Auth::user();
+        }
+        return view('category')->with(compact('posts', 'authcat', 'user', 'category'));
     }
 
     public function show($postId){
@@ -97,8 +102,8 @@ class PostsController extends Controller
     }
 
     public function getSpecials($categoryId){
-        $cats = ['world','arts', 'sport', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
-        if($categoryId == 1){
+        $cats = ['main','world','arts', 'sport', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
+        if($categoryId == 2){
            $specials = Continent::all();
            return $specials;
         }

@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::post('/post/update/world/{postId}/{adminCatId}', 'FourthbarelementsController@update');
         Route::post('/continents/get/{categoryId}', 'FourthbarelementsController@getSpecials');
+        Route::post('/specials/get/{categoryId}', 'PostsController@getSpecials');
         
         Route::group(['middleware' => 'mainadmin'], function(){
 
