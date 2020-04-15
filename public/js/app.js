@@ -2311,11 +2311,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Single',
-  props: ['post'],
+  props: ['post', 'authmain'],
   data: function data() {
     return {
       editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default.a,
@@ -2324,15 +2333,14 @@ __webpack_require__.r(__webpack_exports__);
           items: ['heading', '|', 'bold', 'italic', 'link', 'undo', 'redo', 'bulletedList', 'numberedList', 'blockQuote']
         }
       },
+      editMode: false,
       title: this.post.title,
       body: this.post.body,
       titleAr: this.post.title_ar,
       bodyAr: this.post.body_ar
     };
   },
-  mounted: function mounted() {
-    console.log(this.post);
-  },
+  mounted: function mounted() {},
   methods: {
     save: function save() {
       var ask = confirm('Save this post ?');
@@ -7415,7 +7423,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".main-fourth-navbar .row div .media[data-v-c2edccd6] {\n  line-height: 14px;\n}\n.main-fourth-navbar .row div .area[data-v-c2edccd6] {\n  font-size: 0.7rem;\n}\n.main-fourth-navbar .bor[data-v-c2edccd6] {\n  height: 4px;\n  border-top: 1px solid #000;\n  border-bottom: 1px solid #000;\n}", ""]);
+exports.push([module.i, ".main-fourth-navbar .row div .media[data-v-c2edccd6] {\n  line-height: 14px;\n}\n.main-fourth-navbar .row div .media .media-body[data-v-c2edccd6] {\n  font-size: 12px;\n}\n.main-fourth-navbar .row div .media .media-body h5[data-v-c2edccd6] {\n  font-size: 13px;\n  font-weight: bold;\n}\n.main-fourth-navbar .row div .area[data-v-c2edccd6] {\n  font-size: 0.7rem;\n}\n.main-fourth-navbar .bor[data-v-c2edccd6] {\n  height: 4px;\n  border-top: 1px solid #000;\n  border-bottom: 1px solid #000;\n}", ""]);
 
 // exports
 
@@ -7434,7 +7442,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#single-post h3[data-v-71169cda] {\n  font-family: \"Domine\", serif;\n  font-size: 3rem;\n}", ""]);
+exports.push([module.i, "#single-post h3[data-v-71169cda] {\n  font-family: \"Domine\", serif;\n  font-size: 2.1rem;\n  font-weight: 700;\n  font-style: italic;\n  text-transform: capitalize;\n}\n#single-post div .post-body[data-v-71169cda] {\n  font-size: 1.3rem;\n  font-family: \"Tinos\", serif;\n}\nhr[data-v-71169cda] {\n  margin-top: 2rem;\n  margin-bottom: 1rem;\n  border: 0;\n  border-top: 1px solid black;\n}", ""]);
 
 // exports
 
@@ -39063,13 +39071,15 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "media-body" }, [
                       _c("h5", { staticClass: "my-0" }, [
-                        _vm._v(_vm._s(post.title))
+                        _vm._v(_vm._s(_vm.maxLength(post.title, "25")))
                       ]),
-                      _vm._v(
-                        "\n                      " +
-                          _vm._s(_vm.maxLength(post.body, "52")) +
-                          "\n                      "
-                      ),
+                      _vm._v(" "),
+                      _c("div", {
+                        domProps: {
+                          innerHTML: _vm._s(_vm.maxLength(post.body, "150"))
+                        }
+                      }),
+                      _vm._v(" "),
                       _vm.authmain
                         ? _c("button", { staticClass: "mt-1 edit-admin" }, [
                             _vm._v("Edit")
@@ -39536,7 +39546,9 @@ var render = function() {
       attrs: { id: "single-post" }
     },
     [
-      _c("h3", [_vm._v(_vm._s(_vm.post.title))]),
+      _c("h3", { staticClass: "pl-md-5 py-4" }, [
+        _vm._v(_vm._s(_vm.post.title))
+      ]),
       _vm._v(" "),
       _c("div", [
         _c("img", {
@@ -39546,168 +39558,207 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "social" }, [
-          _vm._v("\n           " + _vm._s(_vm.post.body) + "\n       ")
-        ])
+        _c("div", {
+          staticClass: "mt-3 post-body px-md-4",
+          domProps: { innerHTML: _vm._s(_vm.post.body) }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "social" })
       ]),
       _vm._v(" "),
-      _c("div", [
-        _c("form", { attrs: { id: "single-post-form", action: "" } }, [
-          _c(
-            "div",
-            { staticClass: "my-3" },
-            [
-              _c("h4", [_vm._v("English")]),
-              _vm._v(" "),
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.title,
-                      expression: "title"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "title", placeholder: "Title" },
-                  domProps: { value: _vm.title },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.title = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("ckeditor", {
-                attrs: {
-                  name: "body",
-                  editor: _vm.editor,
-                  config: _vm.editorConfig
-                },
-                model: {
-                  value: _vm.body,
-                  callback: function($$v) {
-                    _vm.body = $$v
-                  },
-                  expression: "body"
+      _vm.authmain
+        ? _c(
+            "button",
+            {
+              staticClass: "mt-2 btn main-btn",
+              on: {
+                click: function($event) {
+                  _vm.editMode = !_vm.editMode
                 }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.body,
-                    expression: "body"
-                  }
-                ],
-                attrs: { type: "hidden", name: "body" },
-                domProps: { value: _vm.body },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.body = $event.target.value
-                  }
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "my-3" },
-            [
-              _c("h4", [_vm._v("العربية")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.titleAr,
-                      expression: "titleAr"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    name: "title_ar",
-                    placeholder: "العنوان"
-                  },
-                  domProps: { value: _vm.titleAr },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.titleAr = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("ckeditor", {
-                staticClass: "form-control",
-                attrs: { editor: _vm.editor, config: _vm.editorConfig },
-                model: {
-                  value: _vm.bodyAr,
-                  callback: function($$v) {
-                    _vm.bodyAr = $$v
-                  },
-                  expression: "bodyAr"
-                }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.bodyAr,
-                    expression: "bodyAr"
-                  }
-                ],
-                attrs: { type: "hidden", name: "body_ar" },
-                domProps: { value: _vm.bodyAr },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.bodyAr = $event.target.value
-                  }
-                }
-              })
-            ],
-            1
+              }
+            },
+            [_vm._v("Edit")]
           )
-        ])
-      ]),
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn main-btn",
-          on: {
-            click: function($event) {
-              return _vm.save()
-            }
-          }
-        },
-        [_vm._v("Save")]
-      )
+      _vm.editMode
+        ? _c("div", { staticClass: "bg-white shadow p-4 mt-3" }, [
+            _c("form", { attrs: { id: "single-post-form", action: "" } }, [
+              _c(
+                "div",
+                { staticClass: "my-3" },
+                [
+                  _c("h4", [_vm._v("English")]),
+                  _vm._v(" "),
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v("Title:")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.title,
+                          expression: "title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "title",
+                        placeholder: "Title"
+                      },
+                      domProps: { value: _vm.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.title = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Post body:")]),
+                  _vm._v(" "),
+                  _c("ckeditor", {
+                    attrs: {
+                      name: "body",
+                      editor: _vm.editor,
+                      config: _vm.editorConfig
+                    },
+                    model: {
+                      value: _vm.body,
+                      callback: function($$v) {
+                        _vm.body = $$v
+                      },
+                      expression: "body"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.body,
+                        expression: "body"
+                      }
+                    ],
+                    attrs: { type: "hidden", name: "body" },
+                    domProps: { value: _vm.body },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.body = $event.target.value
+                      }
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "my-3" },
+                [
+                  _c("h4", [_vm._v("العربية")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "" } }, [_vm._v(":العنوان")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.titleAr,
+                          expression: "titleAr"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "title_ar",
+                        placeholder: "العنوان"
+                      },
+                      domProps: { value: _vm.titleAr },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.titleAr = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "" } }, [_vm._v(":النص")]),
+                  _vm._v(" "),
+                  _c("ckeditor", {
+                    staticClass: "form-control",
+                    attrs: { editor: _vm.editor, config: _vm.editorConfig },
+                    model: {
+                      value: _vm.bodyAr,
+                      callback: function($$v) {
+                        _vm.bodyAr = $$v
+                      },
+                      expression: "bodyAr"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bodyAr,
+                        expression: "bodyAr"
+                      }
+                    ],
+                    attrs: { type: "hidden", name: "body_ar" },
+                    domProps: { value: _vm.bodyAr },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.bodyAr = $event.target.value
+                      }
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "admincat_id" },
+                domProps: { value: _vm.post.admincat_id }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn main-btn",
+                on: {
+                  click: function($event) {
+                    return _vm.save()
+                  }
+                }
+              },
+              [_vm._v("Save")]
+            )
+          ])
+        : _vm._e()
     ]
   )
 }
@@ -39717,6 +39768,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Image:")]),
+      _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
         attrs: { type: "file", name: "img" }

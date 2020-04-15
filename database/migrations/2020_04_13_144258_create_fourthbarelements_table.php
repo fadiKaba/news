@@ -31,7 +31,7 @@ class CreateFourthbarelementsTable extends Migration
                     'title_ar' => 'test ar'.$i,
                     'body' => 'test body'. $i,
                     'body_ar' => 'test body ar'. $i,
-                    'src' => 'img1.jpg',
+                    'src' => 'img'.($i + 1).'.jpg',
                     'admincat_id' => 1,
                 )
             );

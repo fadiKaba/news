@@ -6,8 +6,8 @@
                       <div class="media">
                         <img :src="'/images/single-post-photos/'+post.src" class="mr-3" alt="..." width="60px">
                         <div class="media-body">
-                            <h5 class="my-0">{{post.title}}</h5>
-                            {{maxLength(post.body, '52')}}
+                            <h5 class="my-0">{{maxLength(post.title, '25')}}</h5>
+                            <div v-html="maxLength(post.body, '150')"></div>
                             <button class="mt-1 edit-admin" v-if="authmain">Edit</button>
                         </div>
                       </div>
@@ -120,6 +120,13 @@ export default {
             div{
                 .media{
                     line-height: 14px;
+                    .media-body{
+                        font-size: 12px;
+                        h5{
+                            font-size: 13px;
+                            font-weight: bold;
+                        }                      
+                    }                   
                 }
                 .area{
                     font-size: 0.7rem;
