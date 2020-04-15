@@ -81,7 +81,7 @@
         <a class="btn mr-auto main-btn bg-warning text-dark" href="/users/get">Main Administrator</a> 
         @endif
         @foreach(Auth::user()->category as $cat)
-        <a class="btn main-btn text-white">{{$cat->category}}</a>
+        <a class="btn main-btn text-white mr-2">{{$cat->category}}</a>
         @endforeach
         <button class="btn ml-auto main-btn bg-warning text-dark" disabled href="/users/get">Administrator</button>
     </nav> 

@@ -20,7 +20,7 @@ class CreateAdmincatsTable extends Migration
         });
         
 
-        $cats = ['world','arts', 'sport', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
+        $cats = ['welcome','world','arts', 'sport', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
         
         foreach($cats as $cat){
            

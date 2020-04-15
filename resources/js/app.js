@@ -13,10 +13,11 @@ Vue.use(require('vue-moment'));
  import Userclient from './components/Userclient';
  import Newuser from './components/Newuser';
  import Singlepost from './components/Singlepost';
+ import Category from './components/Category';
 
 const app = new Vue({
     el: '#app',
-    components:{Maincomponent, Useradmin, Userclient, Newuser, Singlepost},
+    components:{Maincomponent, Useradmin, Userclient, Newuser, Singlepost, Category},
     data: function(){
         return{          
             time: ''

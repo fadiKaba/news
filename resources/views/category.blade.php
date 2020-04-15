@@ -1,12 +1,11 @@
 @extends('layouts/app')
 
 @section('content')
-
-<Singlepost 
+{{dd(Auth::user()->category)}}
+<Category
 :post="{{json_encode($post)}}" 
 :authmain="@if(Auth::check() && Auth::user()->is_admin == 1 && count(Auth::user()->category) == 0) true @else false @endif"
-:authcat="{{$authcat}}"
->
-</Singlepost>
+:authcat="@if(Auth::check() && Auth::user()->is_admin == 1 && count(Auth::user()->category) != 0) {{Auth::user()->category}} @else false @endif"
+></Category>
 
 @endsection

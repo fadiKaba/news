@@ -24,6 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/forthbar/posts', 'FourthbarelementsController@index');
 Route::get('/forthbar/posts/{postId}', 'FourthbarelementsController@show');
 
+Route::get('/posts/{adminCatId}', 'PostsController@index');
+Route::get('/posts/{adminCatId}/{postId}', 'PostsController@show');
+
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['middleware' => 'admin'], function(){

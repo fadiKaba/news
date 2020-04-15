@@ -3,23 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Fourthbarelement;
+use App\Post;
 use App\Admincat;
 use File;
 use Auth;
 use Image;
 
-use App\Continent;
 
-class FourthbarelementsController extends Controller
-{
-    public function index(){
-        $posts = Fourthbarelement::all();
-        return $posts;
+class PostsController extends Controller
+{   
+    public function index($adminCatId){
+        $posts = Post::where('admincat_id', $adminCatId)->get();
+        $authcat = false;
+        if(Auth::check() && Auth::user()->is_admin == 1 & count(Auth::user()->category) > 0){
+            for($i = 0; $i < count(Auth::user()->category); $i++){
+                if(Auth::user()->category[$i]->id == $adminCatId){
+                    $authcat = true;
+                }
+            }
+        }
+        
+        return view('category')->with(compact('posts', 'authcat'));
     }
 
     public function show($postId){
-        $post = Fourthbarelement::where('id', $postId)->with('admincat')->with('user')->first();
+        $post = Post::where('id', $postId)->with('admincat')->with('user')->first();
         return view('single-post')->with(compact('post'));
     }
 
@@ -35,7 +43,7 @@ class FourthbarelementsController extends Controller
           }
 
         if(count(Auth::user()->category) == 0 || $catAllowed ){
-            $post = Fourthbarelement::findOrFail($postId);
+            $post = Post::findOrFail($postId);
             $src = '';
             $request->validate([
             'title' => 'required|max:500',
@@ -88,5 +96,11 @@ class FourthbarelementsController extends Controller
         }       
     }
 
-
+    public function getSpecials($categoryId){
+        $cats = ['world','arts', 'sport', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
+        if($categoryId == 1){
+           $specials = Continent::all();
+           return $specials;
+        }
+    }
 }
