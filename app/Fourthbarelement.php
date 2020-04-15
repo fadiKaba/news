@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Admincat;
+use App\User;
 
 class Fourthbarelement extends Model
 {   
@@ -11,5 +12,9 @@ class Fourthbarelement extends Model
 
     public function admincat(){
         return $this->belongsTo(Admincat::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

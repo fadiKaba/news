@@ -161,6 +161,8 @@
                 <a href="#" class="d-md-block">Australia</a>
                 <a href="#" class="d-md-block">Americas</a>
                 <a href="#" class="d-md-block">Europe</a>
+                <a href="#" class="d-md-block">Canada</a>
+                <a href="#" class="d-md-block">Middle East</a>
         </div>
     </div>
     <div class="btn-group dropright d-block">

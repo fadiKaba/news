@@ -7,7 +7,7 @@
                         <img :src="'/images/single-post-photos/'+post.src" class="mr-3" alt="..." width="60px">
                         <div class="media-body">
                             <h5 class="my-0">{{maxLength(post.title, '25')}}</h5>
-                            <div v-html="maxLength(post.body, '150')"></div>
+                            <div v-html="maxLength(post.body, '75')"></div>
                             <button class="mt-1 edit-admin" v-if="authmain">Edit</button>
                         </div>
                       </div>

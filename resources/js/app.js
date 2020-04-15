@@ -6,6 +6,8 @@ window.Vue = require('vue');
 import CKEditor from '@ckeditor/ckeditor5-vue';
 Vue.use( CKEditor );
 
+Vue.use(require('vue-moment'));
+
  import Maincomponent from './components/Maincomponent';
  import Useradmin from './components/Useradmin';
  import Userclient from './components/Userclient';

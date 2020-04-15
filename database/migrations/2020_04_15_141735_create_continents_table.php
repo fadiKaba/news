@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdmincatsTable extends Migration
+class CreateContinentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,22 @@ class CreateAdmincatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admincats', function (Blueprint $table) {
+        Schema::create('continents', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->timestamps();
+            $table->string('special');
         });
-        
 
-        $cats = ['world','arts', 'sport', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
+        $continents = ['Africa', 'Asia', 'Australia', 'Americas', 'Europe', 'Canada', 'Middle East'];
         
-        foreach($cats as $cat){
+        foreach($continents as $continent){
            
-            DB::table('admincats')->insert(
+            DB::table('continents')->insert(
                 array(
-                    'category' => $cat,
+                    'special' => $continent,
                 )
             );
 
         }
-      
     }
 
     /**
@@ -41,6 +38,6 @@ class CreateAdmincatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admincats');
+        Schema::dropIfExists('continents');
     }
 }

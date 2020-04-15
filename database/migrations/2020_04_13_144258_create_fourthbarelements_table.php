@@ -22,6 +22,8 @@ class CreateFourthbarelementsTable extends Migration
             $table->string('src');
             $table->integer('admincat_id');
             $table->timestamps();
+            $table->integer('special');
+            $table->integer('user_id');
         });
 
         for($i = 0; $i < 3; $i++){
@@ -33,6 +35,8 @@ class CreateFourthbarelementsTable extends Migration
                     'body_ar' => 'test body ar'. $i,
                     'src' => 'img'.($i + 1).'.jpg',
                     'admincat_id' => 1,
+                    'user_id' => 1,
+                    'special' => 1,
                 )
             );
         }
