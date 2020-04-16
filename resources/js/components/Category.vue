@@ -49,16 +49,53 @@
             <Categorynav :category="category"></Categorynav>
             <div class="sections">
                 <div class="section1 mt-3 mt-md-4">
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div class="row" v-for="pos in postsArr" :key="'pss'+ pos.id">
+                        <div class="col-md-5">
                             <div>
-                                <img :src="'/images/single-post-photos/'+posts[index].src" :alt="posts[index].title" width="100%">
-                                <h4 class="mt-2 mt-md-4">{{posts[index].title}}</h4>
-                                <p v-html="maxLength(posts[index].body, 200)"></p>
+                                <img :src="'/images/single-post-photos/'+pos[index].src" :alt="pos[index].title" width="100%">
+                                <h4 class="mt-2 mt-md-4">{{pos[index].title}}</h4>
+                                <p class="" v-html="maxLength(pos[index].body, 200)"></p>
+                                <small class="text-muted">
+                                    {{ moment.utc(pos[index].created_at).fromNow() }}
+                                    <span>' By {{pos[index].userName}}</span>
+                                </small>
                             </div>
                         </div>
-                        <div class="col-md-3"></div>
-                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <div>
+                                <img :src="'/images/single-post-photos/'+pos[index +1].src" :alt="pos[index +1].title" width="100%">
+                                <h4 class="mt-2 mt-md-4">{{pos[index +1].title}}</h4>
+                                <p v-html="maxLength(pos[index +1].body, 200)"></p>
+                                <small class="text-muted">
+                                    {{ moment.utc(pos[index +1].created_at).fromNow() }}
+                                    <span>' By {{pos[index +1].userName}}</span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <h4 class="">{{pos[index +2].title}}</h4>
+                                <div>
+                                    <img class="float-right" :src="'/images/single-post-photos/'+pos[index +2].src" :alt="pos[index +2].title" width="30%">
+                                    <span v-html="maxLength(pos[index +2].body, 200)"></span>
+                                    <small class="text-muted">
+                                        {{ moment.utc(pos[index +2].created_at).fromNow() }}
+                                        <span>' By {{pos[index +2].userName}}</span>
+                                    </small>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="">{{pos[index +3].title}}</h4>
+                                <div>
+                                    <img class="float-right" :src="'/images/single-post-photos/'+pos[index +3].src" :alt="pos[index +3].title" width="30%">
+                                    <span v-html="maxLength(pos[index +3].body, 200)"></span>
+                                    <small class="text-muted">
+                                        {{ moment.utc(pos[index +3].created_at).fromNow() }}
+                                        <span>' By {{pos[index +3].userName}}</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,18 +120,22 @@ export default {
                 },
             },
             newMode: false,
+            moment: require('moment'),
             specialsArr: [],
             title:'',
             body:'',
             titleAr:'',
             bodyAr:'',
             success: '',
-            postsArr: [],
             index:0,
+            postsArr: [],
         }
     },
+    created: function(){
+       this.makePostArr(this.posts.data);
+    },
     mounted: function(){
-      this.makePostArr(this.posts);
+       console.log(this.posts)
     },
     methods:{
         getSpecials: function(catId){
@@ -117,17 +158,21 @@ export default {
         makePostArr: function(postsArr){
             class Post{
                 constructor(post){
-                    this.id = post.id,
-                    this.title = post.title,
-                    this.body = post.body,
-                    this.special = post.special,
-                    this.category = post.admincat_id
+                    this.id = post.id;
+                    this.title = post.title;
+                    this.body = post.body;
+                    this.special = post.special;
+                    this.category = post.admincat_id;
+                    this.src = post.src;
+                    this.userName = post.user.name;
                 }
             }
+            let arrP = [];
             postsArr.forEach((item) => {
                 let postR = new Post(item);
-                this.postsArr.push(postR);
+                arrP.push(postR);
             })
+            this.postsArr.push(arrP)
         },
         maxLength: function(str, max){
           if(str.length > max){
@@ -135,7 +180,7 @@ export default {
           }else{
               return str;
           }
-        }
+        },
 
     }
 }

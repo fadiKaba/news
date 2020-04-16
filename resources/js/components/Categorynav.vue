@@ -5,7 +5,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav mr-auto">
             <li v-for="special in specialsArr" :key="'spp' + special.id" class="nav-item mini-nav-element active">
-              <a class="nav-link pl-0 pr-4" href="/posts/2">{{special.special}}<span class="sr-only">(current)</span></a>
+              <a class="nav-link pl-0 pr-4" :href="'/posts/special/'+category.id+'/'+special.id">{{special.special}}<span class="sr-only">(current)</span></a>
             </li>
           </ul>
         </div>

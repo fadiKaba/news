@@ -7,7 +7,7 @@
            <a href="#" class="text-dark font-weight-bold admin-name">By {{post.user.name}}</a>
            <div class="row mt-3">               
                 <div class="col-md-6">
-                    {{ moment(this.post.created_at).format("MMMM D, Y, h:m a") }}
+                    {{ moment(post.created_at).format("MMMM D, Y, h:m a") }}
                 </div>
                 <div class="col-md-6 social text-right">
                     <a href="#"><img src="/ico/facebook.svg" alt="facebook" width="17px"></a>

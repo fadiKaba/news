@@ -23,7 +23,7 @@
         
         @include('layouts/navbar')
 
-        <main class="py-1 container">
+        <main class="py-1 col-md-8 mx-auto">
             @yield('content')
         </main>
     </div>

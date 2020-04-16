@@ -2012,6 +2012,43 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2029,18 +2066,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       },
       newMode: false,
+      moment: __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"),
       specialsArr: [],
       title: '',
       body: '',
       titleAr: '',
       bodyAr: '',
       success: '',
-      postsArr: [],
-      index: 0
+      index: 0,
+      postsArr: []
     };
   },
+  created: function created() {
+    this.makePostArr(this.posts.data);
+  },
   mounted: function mounted() {
-    this.makePostArr(this.posts);
+    console.log(this.posts);
   },
   methods: {
     getSpecials: function getSpecials(catId) {
@@ -2066,19 +2107,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     },
     makePostArr: function makePostArr(postsArr) {
-      var _this2 = this;
-
       var Post = function Post(post) {
         _classCallCheck(this, Post);
 
-        this.id = post.id, this.title = post.title, this.body = post.body, this.special = post.special, this.category = post.admincat_id;
+        this.id = post.id;
+        this.title = post.title;
+        this.body = post.body;
+        this.special = post.special;
+        this.category = post.admincat_id;
+        this.src = post.src;
+        this.userName = post.user.name;
       };
 
+      var arrP = [];
       postsArr.forEach(function (item) {
         var postR = new Post(item);
-
-        _this2.postsArr.push(postR);
+        arrP.push(postR);
       });
+      this.postsArr.push(arrP);
     },
     maxLength: function maxLength(str, max) {
       if (str.length > max) {
@@ -57259,39 +57305,174 @@ var render = function() {
         _c("Categorynav", { attrs: { category: _vm.category } }),
         _vm._v(" "),
         _c("div", { staticClass: "sections" }, [
-          _c("div", { staticClass: "section1 mt-3 mt-md-4" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6" }, [
-                _c("div", [
-                  _c("img", {
-                    attrs: {
-                      src:
-                        "/images/single-post-photos/" +
-                        _vm.posts[_vm.index].src,
-                      alt: _vm.posts[_vm.index].title,
-                      width: "100%"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "mt-2 mt-md-4" }, [
-                    _vm._v(_vm._s(_vm.posts[_vm.index].title))
+          _c(
+            "div",
+            { staticClass: "section1 mt-3 mt-md-4" },
+            _vm._l(_vm.postsArr, function(pos) {
+              return _c("div", { key: "pss" + pos.id, staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-5" }, [
+                  _c("div", [
+                    _c("img", {
+                      attrs: {
+                        src: "/images/single-post-photos/" + pos[_vm.index].src,
+                        alt: pos[_vm.index].title,
+                        width: "100%"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "mt-2 mt-md-4" }, [
+                      _vm._v(_vm._s(pos[_vm.index].title))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", {
+                      domProps: {
+                        innerHTML: _vm._s(
+                          _vm.maxLength(pos[_vm.index].body, 200)
+                        )
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(
+                            _vm.moment.utc(pos[_vm.index].created_at).fromNow()
+                          ) +
+                          "\n                                "
+                      ),
+                      _c("span", [
+                        _vm._v("' By " + _vm._s(pos[_vm.index].userName))
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("div", [
+                    _c("img", {
+                      attrs: {
+                        src:
+                          "/images/single-post-photos/" +
+                          pos[_vm.index + 1].src,
+                        alt: pos[_vm.index + 1].title,
+                        width: "100%"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "mt-2 mt-md-4" }, [
+                      _vm._v(_vm._s(pos[_vm.index + 1].title))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", {
+                      domProps: {
+                        innerHTML: _vm._s(
+                          _vm.maxLength(pos[_vm.index + 1].body, 200)
+                        )
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(
+                            _vm.moment
+                              .utc(pos[_vm.index + 1].created_at)
+                              .fromNow()
+                          ) +
+                          "\n                                "
+                      ),
+                      _c("span", [
+                        _vm._v("' By " + _vm._s(pos[_vm.index + 1].userName))
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "mb-3" }, [
+                    _c("h4", {}, [_vm._v(_vm._s(pos[_vm.index + 2].title))]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("img", {
+                        staticClass: "float-right",
+                        attrs: {
+                          src:
+                            "/images/single-post-photos/" +
+                            pos[_vm.index + 2].src,
+                          alt: pos[_vm.index + 2].title,
+                          width: "30%"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        domProps: {
+                          innerHTML: _vm._s(
+                            _vm.maxLength(pos[_vm.index + 2].body, 200)
+                          )
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(
+                              _vm.moment
+                                .utc(pos[_vm.index + 2].created_at)
+                                .fromNow()
+                            ) +
+                            "\n                                    "
+                        ),
+                        _c("span", [
+                          _vm._v("' By " + _vm._s(pos[_vm.index + 2].userName))
+                        ])
+                      ])
+                    ])
                   ]),
                   _vm._v(" "),
-                  _c("p", {
-                    domProps: {
-                      innerHTML: _vm._s(
-                        _vm.maxLength(_vm.posts[_vm.index].body, 200)
-                      )
-                    }
-                  })
+                  _c("div", [
+                    _c("h4", {}, [_vm._v(_vm._s(pos[_vm.index + 3].title))]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("img", {
+                        staticClass: "float-right",
+                        attrs: {
+                          src:
+                            "/images/single-post-photos/" +
+                            pos[_vm.index + 3].src,
+                          alt: pos[_vm.index + 3].title,
+                          width: "30%"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        domProps: {
+                          innerHTML: _vm._s(
+                            _vm.maxLength(pos[_vm.index + 3].body, 200)
+                          )
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(
+                              _vm.moment
+                                .utc(pos[_vm.index + 3].created_at)
+                                .fromNow()
+                            ) +
+                            "\n                                    "
+                        ),
+                        _c("span", [
+                          _vm._v("' By " + _vm._s(pos[_vm.index + 3].userName))
+                        ])
+                      ])
+                    ])
+                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2" })
-            ])
-          ])
+              ])
+            }),
+            0
+          )
         ])
       ],
       1
@@ -57359,7 +57540,13 @@ var render = function() {
                       "a",
                       {
                         staticClass: "nav-link pl-0 pr-4",
-                        attrs: { href: "/posts/2" }
+                        attrs: {
+                          href:
+                            "/posts/special/" +
+                            _vm.category.id +
+                            "/" +
+                            special.id
+                        }
                       },
                       [
                         _vm._v(_vm._s(special.special)),
@@ -57929,7 +58116,7 @@ var render = function() {
               _vm._v(
                 "\n                    " +
                   _vm._s(
-                    _vm.moment(this.post.created_at).format("MMMM D, Y, h:m a")
+                    _vm.moment(_vm.post.created_at).format("MMMM D, Y, h:m a")
                   ) +
                   "\n                "
               )

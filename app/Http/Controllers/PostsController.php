@@ -15,7 +15,7 @@ class PostsController extends Controller
 {   
     public function index($adminCatId){
         $category = Admincat::findOrFail($adminCatId);
-        $posts = Post::where('admincat_id', $adminCatId)->get();
+        $posts = Post::where('admincat_id', $adminCatId)->with('user')->paginate(4);
         $user = 'false';
         $authcat = 'false';
         if(Auth::check() && Auth::user()->is_admin == 1 & count(Auth::user()->category) > 0){
@@ -37,14 +37,14 @@ class PostsController extends Controller
     }
     
     public function newPost(Request $request){
-        // $request->validate([
-        //     'title' => 'required|max:500',
-        //     'body' => 'required',
-        //     'title' => 'required|max:500',
-        //     'body' => 'required',
-        //     'special' => 'required',
-        //     'img' => 'required|image',
-        // ]);
+        $request->validate([
+            'title' => 'required|max:500',
+            'body' => 'required',
+            'title' => 'required|max:500',
+            'body' => 'required',
+            'special' => 'required',
+            'img' => 'required|image',
+        ]);
 
         $img = $request->file('img');
         $imgName = 'post' . Auth::id() . time() . '.' . $img->extension();
