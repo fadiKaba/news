@@ -7,6 +7,7 @@
 :authcat="{{$authcat}}"
 :user="{{$user}}"
 :category="{{json_encode($category)}}"
+:posts="{{json_encode($posts)}}"
 ></Category>
 
 @endsection

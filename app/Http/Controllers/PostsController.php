@@ -35,6 +35,41 @@ class PostsController extends Controller
         $post = Post::where('id', $postId)->with('admincat')->with('user')->first();
         return view('single-post')->with(compact('post'));
     }
+    
+    public function newPost(Request $request){
+        // $request->validate([
+        //     'title' => 'required|max:500',
+        //     'body' => 'required',
+        //     'title' => 'required|max:500',
+        //     'body' => 'required',
+        //     'special' => 'required',
+        //     'img' => 'required|image',
+        // ]);
+
+        $img = $request->file('img');
+        $imgName = 'post' . Auth::id() . time() . '.' . $img->extension();
+        $destination = 'images/single-post-photos';
+        if(!File::isDirectory($destination)){
+            File::makeDirectory($destination);
+        }
+        $imgM = Image::make($img->path());
+        $imgM->orientate()->fit(1200, 1000, function($constrain){
+            $constrain->aspectRatio();
+        })->save($destination.'/'. $imgName);
+        
+        $post = Post::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'title_ar' => $request->title_ar,
+            'body_ar' => $request->body_ar,
+            'admincat_id' => $request->category,
+            'special' => $request->special,
+            'src' => $imgName,
+            'user_id' => Auth::id(),
+        ]);
+      
+        return $post;
+    }
 
     public function update(Request $request, $postId, $adminCatId){
           
