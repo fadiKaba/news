@@ -6,6 +6,15 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Admincat;
 use App\Continent;
+use App\Artelement;
+use App\Sportelement;
+use App\Businesselement;
+use App\Healthelement;
+use App\Foodelement;
+use App\Bookelement;
+use App\Stylelement;
+use App\Opinonelement;
+use App\Sienceelement;
 use File;
 use Auth;
 use Image;
@@ -15,7 +24,7 @@ class PostsController extends Controller
 {   
     public function index($adminCatId){
         $category = Admincat::findOrFail($adminCatId);
-        $posts = Post::where('admincat_id', $adminCatId)->with('user')->paginate(4);
+        $posts = Post::where('admincat_id', $adminCatId)->with('user')->orderBy('created_at','desc')->paginate(9);
         $user = 'false';
         $authcat = 'false';
         if(Auth::check() && Auth::user()->is_admin == 1 & count(Auth::user()->category) > 0){
@@ -40,8 +49,8 @@ class PostsController extends Controller
         $request->validate([
             'title' => 'required|max:500',
             'body' => 'required',
-            'title' => 'required|max:500',
-            'body' => 'required',
+            'title_ar' => 'required|max:500',
+            'body_ar' => 'required',
             'special' => 'required',
             'img' => 'required|image',
         ]);
@@ -53,7 +62,7 @@ class PostsController extends Controller
             File::makeDirectory($destination);
         }
         $imgM = Image::make($img->path());
-        $imgM->orientate()->fit(1200, 1000, function($constrain){
+        $imgM->orientate()->fit(1200, 800, function($constrain){
             $constrain->aspectRatio();
         })->save($destination.'/'. $imgName);
         
@@ -137,10 +146,64 @@ class PostsController extends Controller
     }
 
     public function getSpecials($categoryId){
-        $cats = ['main','world','arts', 'sport', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
+      //  $cats = ['main','world','arts', 'sports', 'business', 'Health', 'food', 'travel', 'magazine', 'books', 'style', 'opinion'];
         if($categoryId == 2){
            $specials = Continent::all();
            return $specials;
+        }else if($categoryId == 3){
+            $specials = Artelement::all();
+            return $specials;
+         }else if($categoryId == 4){
+            $specials = Sportelement::all();
+            return $specials;
+         }
+         else if($categoryId == 5){
+            $specials = Businesselement::all();
+            return $specials;
+         }
+         else if($categoryId == 6){
+            $specials = Healthelement::all();
+            return $specials;
+         }
+         else if($categoryId == 7){
+            $specials = Foodelement::all();
+            return $specials;
+         }
+         else if($categoryId == 10){
+            $specials = Bookelement::all();
+            return $specials;
+         }
+         else if($categoryId == 11){
+            $specials = Stylelement::all();
+            return $specials;
+         }
+         else if($categoryId == 12){
+            $specials = Opinonelement::all();
+            return $specials;
+         }
+         else if($categoryId == 13){
+            $specials = Sienceelement::all();
+            return $specials;
+         }
+    }
+
+    public function getRandomPosts($categoryId){
+        
+          $post1 = Post::where('admincat_id', $categoryId)->where('special', 1)->first();
+          $post2 = Post::where('admincat_id', $categoryId)->where('special', 2)->first();
+          $post3 = Post::where('admincat_id', $categoryId)->where('special', 3)->first();
+          $post4 = Post::where('admincat_id', $categoryId)->where('special', 4)->first();
+          $post5 = Post::where('admincat_id', $categoryId)->where('special', 5)->first();
+
+          return json_encode([$post1, $post2, $post3, $post4, $post5]);
+
+    }
+
+    public function latest($categoryId, $special){
+        if($special == 'no'){
+           $posts = Post::where('admincat_id', $categoryId)->with('user')->orderBy('created_at', 'desc')->paginate(8);
+           return $posts;
         }
     }
+
 }

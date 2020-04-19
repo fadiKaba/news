@@ -151,7 +151,7 @@
             </a>
       </div>
       <div class="btn-group dropright d-block">
-            <a type="button" class="border-0 dropdown-toggle"  aria-haspopup="true" aria-expanded="false">
+            <a type="button" class="border-0 dropdown-toggle" href="/posts/2"  aria-haspopup="true" aria-expanded="false">
                 World
             </a>
             <div class="dropdown-menu">
@@ -181,10 +181,10 @@
     </div>
     <div class="btn-group dropright d-block">
         <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
-            Sport
+            Sports
         </a>
         <div class="dropdown-menu">
-            <span class="text-muted">Sport</span>
+            <span class="text-muted">Sports</span>
             <a href="#" class="d-md-block">Baseball</a>
             <a href="#" class="d-md-block">Football</a>
             <a href="#" class="d-md-block">Golf</a>
@@ -193,6 +193,19 @@
             <a href="#" class="d-md-block">Hockey</a>
         </div>
     </div>
+    <div class="btn-group dropright d-block">
+        <a type="button" class="border-0 dropdown-toggle" href="/posts/5"  aria-haspopup="true" aria-expanded="false">
+            Business
+        </a>
+        <div class="dropdown-menu">
+            <span class="text-muted">Business</span>
+            <a href="#" class="d-md-block">Technology</a>
+            <a href="#" class="d-md-block">Economy</a>
+            <a href="#" class="d-md-block">Media</a>
+            <a href="#" class="d-md-block">Money</a>
+            <a href="#" class="d-md-block">DealBook</a>
+    </div>
+</div>
     <div class="btn-group dropright d-block">
         <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
             Heath
@@ -224,9 +237,47 @@
     </a>
     </div>
     <div class="btn-group dropright d-block">
-        <a type="button" class="border-0">
-        Books
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Books
         </a>
+        <div class="dropdown-menu">
+            <span class="text-muted">Books</span>
+            <a href="#" class="d-md-block">Best Sellers</a>
+            <a href="#" class="d-md-block">By the Book</a>
+            <a href="#" class="d-md-block">The Book Review</a>
+        </div>
+    </div>
+    <div class="btn-group dropright d-block">
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Style
+        </a>
+        <div class="dropdown-menu">
+            <span class="text-muted">Style</span>
+            <a href="#" class="d-md-block">Men's style</a>
+            <a href="#" class="d-md-block">On the runway</a>
+            <a href="#" class="d-md-block">Love</a>
+        </div>
+    </div>
+    <div class="btn-group dropright d-block">
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Opinion
+        </a>
+        <div class="dropdown-menu">
+            <span class="text-muted">Opinon</span>
+            <a href="#" class="d-md-block">Editorials</a>
+            <a href="#" class="d-md-block">Sunday</a>
+            <a href="#" class="d-md-block">Letters</a>
+        </div>
+    </div>
+    <div class="btn-group dropright d-block">
+        <a type="button" class="border-0 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            Science
+        </a>
+        <div class="dropdown-menu">
+            <span class="text-muted">Science</span>
+            <a href="#" class="d-md-block">Enviroment</a>
+            <a href="#" class="d-md-block">Space & Cosmos</a>
+        </div>
     </div>
 </div>
 

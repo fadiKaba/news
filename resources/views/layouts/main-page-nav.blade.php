@@ -42,34 +42,37 @@
               <a class="nav-link" href="/posts/2">World<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Art</a>
+              <a class="nav-link" href="/posts/3">Art</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Business</a>
+                <a class="nav-link" href="/posts/4">Sports</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Opinion</a>
+                <a class="nav-link" href="/posts/5">Business</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Sport</a>
+              <a class="nav-link" href="/posts/6">Health</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Health</a>
+                <a class="nav-link" href="/posts/7">Food</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Food</a>
+                <a class="nav-link" href="/posts/8">Travel</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Travel</a>
+                <a class="nav-link" href="/posts/9">Magazine</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Magazine</a>
+                <a class="nav-link" href="/posts/10">Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Books</a>
+                <a class="nav-link" href="/posts/11">Style</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Style</a>
+                <a class="nav-link" href="/posts/12">Opinions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/posts/13">Science</a>
             </li>
           </ul>
         </div>

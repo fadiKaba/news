@@ -2,7 +2,7 @@
       <div class="main-fourth-navbar">
           <div class="row py-2">
               <div v-for="post in posts" :key="'fpo'+post.id" class="col-md-3 border-right">
-                  <a :href="'/forthbar/posts/'+ post.id" class="text-decoration-none text-dark">
+                  <a :href="'/fpost/show/'+ post.id" class="text-decoration-none text-dark">
                       <div class="media">
                         <img :src="'/images/single-post-photos/'+post.src" class="mr-3" alt="..." width="60px">
                         <div class="media-body">

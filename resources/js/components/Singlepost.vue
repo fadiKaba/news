@@ -21,54 +21,56 @@
     </div>
     <button class="mt-2 btn main-btn" v-if="authmain" @click="editMode = !editMode, getSpecials(post.admincat.id)">Edit</button>
     <div v-if="editMode" class="bg-white shadow p-4 mt-3"> 
-        <p class="alert alert-success" v-if="success != ''">{{success}}</p>
-        <form id="single-post-form" action="">
-            <div class="my-3">
-                <h4>English</h4>
-                <div class="form-group">
-                    <label for="">Special:</label>
-                    <select class="form-control" name="special">
-                        <option value="" disabled selected>{{defaultSpecial}}</option>
-                        <option v-for="special in specialsArr" :key="'sp'+special.id" :value="special.id">{{special.special}}</option>
-                    </select>
+            <form id="single-post-form" action="">
+                <div class="my-3">
+                    <h4>English</h4>
+                    <div class="form-group">
+                        <label for="">Special:</label>
+                        <select class="form-control" name="special">
+                            <option value="" disabled selected>{{defaultSpecial}}</option>
+                            <option v-for="special in specialsArr" :key="'sp'+special.id" :value="special.id">{{special.special}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Image:</label>
+                        <input class="form-control" type="file" name="img">
+                    </div>               
+                    <div class="form-group">
+                        <label for="">Title:</label>
+                    <input class="form-control" v-model="title" type="text" name="title" placeholder="Title"> 
+                    </div>  
+                    <label for="">Post body:</label>            
+                    <ckeditor name="body" :editor="editor"  v-model="body" :config="editorConfig"></ckeditor> 
+                    <input type="hidden" name="body" v-model="body">
                 </div>
-                <div class="form-group">
-                    <label for="">Image:</label>
-                    <input class="form-control" type="file" name="img">
-                </div>               
-                <div class="form-group">
-                    <label for="">Title:</label>
-                   <input class="form-control" v-model="title" type="text" name="title" placeholder="Title"> 
+               <hr>
+                <div class="my-3">
+                    <h4>العربية</h4>               
+                    <div class="form-group">
+                        <label for="">:العنوان</label>
+                    <input class="form-control" v-model="titleAr" type="text" name="title_ar" placeholder="العنوان">
+                    </div>  
+                    <label for="">:النص</label>           
+                    <ckeditor class="form-control" :editor="editor"  v-model="bodyAr" :config="editorConfig"></ckeditor> 
+                    <input type="hidden" name="body_ar" v-model="bodyAr">
                 </div>  
-                <label for="">Post body:</label>            
-                <ckeditor name="body" :editor="editor"  v-model="body" :config="editorConfig"></ckeditor> 
-                <input type="hidden" name="body" v-model="body">
-            </div>
-            <hr>
-            <div class="my-3">
-                <h4>العربية</h4>               
-                <div class="form-group">
-                    <label for="">:العنوان</label>
-                   <input class="form-control" v-model="titleAr" type="text" name="title_ar" placeholder="العنوان">
-                </div>  
-                <label for="">:النص</label>           
-                <ckeditor class="form-control" :editor="editor"  v-model="bodyAr" :config="editorConfig"></ckeditor> 
-                <input type="hidden" name="body_ar" v-model="bodyAr">
-            </div>  
-            <input type="hidden" name="admincat_id" :value="post.admincat_id">        
-        </form>
-        <button class="btn main-btn" @click="save()">Save</button>       
+                <input type="hidden" name="admincat_id" :value="post.admincat_id">        
+            </form>
+            <p class="alert alert-success" v-if="success != ''">{{success}}</p>
+            <button class="btn main-btn" @click="save()">Save</button>       
+        </div>
+        <!-- <Postrandom :category="post.admincat_id"></Postrandom> -->
     </div>
-</div>
-
 </template>
 <script>
 
 import axios from 'axios';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Postrandom from './Postrandom';
 
 export default {
     name:'Single',
+    components:{Postrandom},
     props:['post', 'authmain'],
     data: function(){
         return{
@@ -87,37 +89,42 @@ export default {
             success: '',   
             moment: require('moment'),
             specialsArr:[], 
-            defaultSpecial:'' 
+            defaultSpecial:'',
+            updatedTitle:'',
+            updatedBody:'' 
         }
     },
     mounted: function(){
-       this.date();
+
     },
     methods:{
-        date: function(){
-          let d = new Date(this.post.created_at);
-          console.log(d);
-        },
         save: function(){
             let ask = confirm('Save this post ?');
             if(ask){
                 let fr = new FormData(document.querySelector('#single-post-form'));
               axios({
                 method: 'POST',
-                url: `/post/update/${this.post.admincat.category}/${this.post.id}/${this.post.admincat.id}`,
+                url: `/post/update/${this.post.id}/${this.post.admincat.id}`,
                 data: fr,
                 config: { headers: {'Content-Type': 'multipart/form-data' }},               
               }).then((response) => {
                   this.success = 'Post saved'
-                  setInterval(()=>{this.success = ''}, 7000);
+                  setInterval(()=>{
+                      this.success = '';
+                      location.reload();
+                      }, 3000);
                   if(response.data != 'saved'){
-                      this.src = response.data
+                      this.src = response.data;
+                      setInterval(()=>{
+                      this.success = '';
+                      location.reload();
+                      }, 3000);
                   }
               });
             }
         },
         getSpecials(categoryId){
-            axios.post(`/continents/get/${categoryId}`)
+            axios.post(`/posts/getSpecials/${categoryId}`)
             .then((response) => {
                 this.specialsArr = response.data;
                 this.defaultSpecial = this.specialsArr[this.post.special - 1]['special'];

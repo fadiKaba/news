@@ -1,16 +1,16 @@
 <template>
     <div>
-        <div class="third-navbar">
-    <nav class="navbar navbar-expand-lg py-1 mt-1 px-0">
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav mr-auto">
-            <li v-for="special in specialsArr" :key="'spp' + special.id" class="nav-item mini-nav-element active">
-              <a class="nav-link pl-0 pr-4" :href="'/posts/special/'+category.id+'/'+special.id">{{special.special}}<span class="sr-only">(current)</span></a>
-            </li>
-          </ul>
+        <div class="third-navbar cat-nav">
+            <nav class="navbar navbar-expand-lg py-1 mt-1 px-0">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li v-for="special in specialsArr" :key="'spp' + special.id" class="nav-item mini-nav-element active">
+                    <a class="nav-link pl-0 pr-4" :href="'/posts/special/'+category.id+'/'+special.id">{{special.special}}<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                </div>
+            </nav>
         </div>
-      </nav>
-</div>
     </div>
 </template>
 <script>
@@ -38,6 +38,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.cat-nav{
+    border-bottom: 1px solid #000;
+}
 .mini-nav-element{
     a{
       border-right: rgb(168, 168, 168) 1px solid; 

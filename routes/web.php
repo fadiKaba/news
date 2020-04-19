@@ -22,20 +22,24 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/forthbar/posts', 'FourthbarelementsController@index');
-Route::get('/forthbar/posts/{postId}', 'FourthbarelementsController@show');
 
 Route::get('/posts/{adminCatId}', 'PostsController@index');
+Route::get('/fpost/show/{postId}', 'FourthbarelementsController@show');
 Route::get('/posts/{adminCatId}/{postId}', 'PostsController@show');
+Route::post('/posts/getSpecials/{categoryId}', 'PostsController@getSpecials');
+Route::post('/posts/random/{categoryId}','PostsController@getRandomPosts');
+Route::post('/post/latest/{categoryId}/{special}', 'PostsController@latest');
+Route::get('/post/show/{postId}', 'PostsController@show');
 
 Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['middleware' => 'admin'], function(){
 
-        Route::post('/post/update/world/{postId}/{adminCatId}', 'FourthbarelementsController@update');
+        Route::post('/post/update/{postId}/{adminCatId}', 'postsController@update');
         Route::post('/continents/get/{categoryId}', 'FourthbarelementsController@getSpecials');
         Route::post('/specials/get/{categoryId}', 'PostsController@getSpecials');
         Route::post('/post/new','PostsController@newPost');
-        Route::post('/posts/getSpecials/{categoryId}', 'PostsController@getSpecials');
+        
         
         Route::group(['middleware' => 'mainadmin'], function(){
 
